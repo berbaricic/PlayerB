@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SessionControl.Models;
+using StackExchange.Redis;
 
 namespace SessionControl
 {
@@ -25,7 +26,15 @@ namespace SessionControl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var connection = @"Server=127.0.0.1,1433;Database=SessionDatabase;User=SA;Password=Pa$$word2020;";
+            var redis = ConnectionMultiplexer.Connect("localhost");
+
+            IDatabase db = redis.GetDatabase();
+            string value = "Saljem s Redis klijenta";
+            db.StringSet("Kljuc123", value);
+
+            string vrijednost = db.StringGet("Kljuc123");
+            Console.WriteLine(value);
+
 
             services.AddDbContext<SessionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SessionConn")));
 

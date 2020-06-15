@@ -10,8 +10,8 @@ namespace SessionControl.Models
         public SessionContext(DbContextOptions<SessionContext> options)
             : base(options)
         {
-        }
 
+        }
         public DbSet<Session> Sessions { get; set; }   
     }
 }
