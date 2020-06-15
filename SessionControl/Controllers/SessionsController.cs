@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using SessionControl.Models;
+using StackExchange.Redis;
 
 namespace SessionControl.Controllers
 {
@@ -14,16 +18,28 @@ namespace SessionControl.Controllers
     public class SessionsController : ControllerBase
     {
         private readonly SessionContext _context;
+        private readonly IDistributedCache _cache;
 
-        public SessionsController(SessionContext context)
+        public SessionsController(SessionContext context, IDistributedCache cache)
         {
             _context = context;
+            _cache = cache;
         }
 
         // GET: api/Sessions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Session>>> GetSessions()
         {
+            var cachedSessions = _cache.GetString("sessions");
+            if (!string.IsNullOrEmpty(cachedSessions))
+            {
+                //return await JsonConvert.DeserializeObject(cachedSessions);
+            }
+            else
+            {
+                _cache.SetString("sessions", JsonConvert.SerializeObject(_context.Sessions.ToList()));
+            }
+
             return await _context.Sessions.ToListAsync();
         }
 

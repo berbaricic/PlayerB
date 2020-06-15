@@ -28,12 +28,12 @@ namespace SessionControl
         {
             var redis = ConnectionMultiplexer.Connect("localhost");
 
-            IDatabase db = redis.GetDatabase();
-            string value = "Saljem s Redis klijenta";
-            db.StringSet("Kljuc123", value);
+            //IDatabase db = redis.GetDatabase();
+            //string value = "Saljem s Redis klijenta";
+            //db.StringSet("Kljuc123", value);
 
-            string vrijednost = db.StringGet("Kljuc123");
-            Console.WriteLine(value);
+            //string vrijednost = db.StringGet("Kljuc123");
+            //Console.WriteLine(value);
 
 
             services.AddDbContext<SessionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SessionConn")));
