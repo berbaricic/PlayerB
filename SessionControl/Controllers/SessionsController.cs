@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using SessionControl.Models;
 using StackExchange.Redis;
@@ -18,9 +16,9 @@ namespace SessionControl.Controllers
     public class SessionsController : ControllerBase
     {
         private readonly SessionContext _context;
-        private readonly IDistributedCache _cache;
+        private readonly IDatabase _cache;
 
-        public SessionsController(SessionContext context, IDistributedCache cache)
+        public SessionsController(SessionContext context, IDatabase cache)
         {
             _context = context;
             _cache = cache;
@@ -30,14 +28,14 @@ namespace SessionControl.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Session>>> GetSessions()
         {
-            var cachedSessions = _cache.GetString("sessions");
+            var cachedSessions = _cache.StringGet("sessions");
             if (!string.IsNullOrEmpty(cachedSessions))
             {
-                //return await JsonConvert.DeserializeObject(cachedSessions);
+                //return JsonConvert.DeserializeObject(cachedSessions);
             }
             else
             {
-                _cache.SetString("sessions", JsonConvert.SerializeObject(_context.Sessions.ToList()));
+                _cache.StringSet("sessions", JsonConvert.SerializeObject(_context.Sessions.ToList()));
             }
 
             return await _context.Sessions.ToListAsync();
@@ -70,6 +68,8 @@ namespace SessionControl.Controllers
 
             _context.Entry(session).State = EntityState.Modified;
 
+            _cache.StringSet(id.ToString(), session.Status);
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -97,6 +97,8 @@ namespace SessionControl.Controllers
         {
             _context.Sessions.Add(session);
             await _context.SaveChangesAsync();
+
+            _cache.StringSet(session.Id.ToString(), session.Status);
 
             return CreatedAtAction("GetSession", new { id = session.Id }, session);
         }

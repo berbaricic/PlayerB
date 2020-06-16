@@ -26,15 +26,8 @@ namespace SessionControl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var redis = ConnectionMultiplexer.Connect("localhost");
-
-            //IDatabase db = redis.GetDatabase();
-            //string value = "Saljem s Redis klijenta";
-            //db.StringSet("Kljuc123", value);
-
-            //string vrijednost = db.StringGet("Kljuc123");
-            //Console.WriteLine(value);
-
+            IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+            services.AddScoped(s => redis.GetDatabase());
 
             services.AddDbContext<SessionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SessionConn")));
 
