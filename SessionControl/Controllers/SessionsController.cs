@@ -11,117 +11,41 @@ using StackExchange.Redis;
 
 namespace SessionControl.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class SessionsController : ControllerBase
     {
-        private readonly SessionContext _context;
         private readonly IDatabase _cache;
 
-        public SessionsController(SessionContext context, IDatabase cache)
+        public SessionsController(IDatabase cache)
         {
-            _context = context;
             _cache = cache;
         }
 
-        // GET: api/Sessions
+        // GET: Sessions?id=id&Status=status&UserAdress=UserAdress&IdVIdeo=IdVIdeo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Session>>> GetSessions()
+        public Session GetSessions([FromQuery]Session session)
         {
-            var cachedSessions = _cache.StringGet("sessions");
-            if (!string.IsNullOrEmpty(cachedSessions))
-            {
-                //return JsonConvert.DeserializeObject(cachedSessions);
-            }
-            else
-            {
-                _cache.StringSet("sessions", JsonConvert.SerializeObject(_context.Sessions.ToList()));
-            }
+            //temporary key generation
+            Random rnd = new Random();
+            int broj = rnd.Next(0,1000);
 
-            return await _context.Sessions.ToListAsync();
+            //put object into cache
+            _cache.StringSet("Key:" + broj.ToString(), JsonConvert.SerializeObject(session));
+
+            //return object from cache
+            var cachedSession = _cache.StringGet("Key:" + broj.ToString());
+            Session sess = JsonConvert.DeserializeObject<Session>(cachedSession);
+
+            return sess;
         }
 
-        // GET: api/Sessions/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Session>> GetSession(int id)
+        //PUT: Sessions/key:x
+        [HttpPut("{key}")]
+        public void PutSessions(string key, [FromBody] Session session)
         {
-            var session = await _context.Sessions.FindAsync(id);
-
-            if (session == null)
-            {
-                return NotFound();
-            }
-
-            return session;
-        }
-
-        // PUT: api/Sessions/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSession(int id, Session session)
-        {
-            if (id != session.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(session).State = EntityState.Modified;
-
-            _cache.StringSet(id.ToString(), session.Status);
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SessionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Sessions
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Session>> PostSession(Session session)
-        {
-            _context.Sessions.Add(session);
-            await _context.SaveChangesAsync();
-
-            _cache.StringSet(session.Id.ToString(), session.Status);
-
-            return CreatedAtAction("GetSession", new { id = session.Id }, session);
-        }
-
-        // DELETE: api/Sessions/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Session>> DeleteSession(int id)
-        {
-            var session = await _context.Sessions.FindAsync(id);
-            if (session == null)
-            {
-                return NotFound();
-            }
-
-            _context.Sessions.Remove(session);
-            await _context.SaveChangesAsync();
-
-            return session;
-        }
-
-        private bool SessionExists(int id)
-        {
-            return _context.Sessions.Any(e => e.Id == id);
+            //save session changes
+            _cache.StringSet(key, JsonConvert.SerializeObject(session));
         }
     }
 }
