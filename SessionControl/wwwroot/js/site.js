@@ -1,15 +1,71 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
+﻿
 var vid = document.getElementById("myVideo");
+var videoSource = document.getElementById("myVideo").getElementsByTagName("source")[0].src;
+//event: PLAY
 vid.onplay = function () {
-    alert("The video is now playing");
+    const Http = new XMLHttpRequest();
+    const url = 'https://localhost:44321/Sessions';
+    Http.open("POST", url);
+    Http.setRequestHeader('Content-Type', 'application/json');
+    Http.send(JSON.stringify({
+        "Id": "12bb12",
+        "Status": "PLAY",
+        "UserAdress": "225.225.225.1",
+        "IdVIdeo": "video"
+    }));
+
+    Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+    }
 };
+////event: RESUME
+vid.onplaying = function () {
+    const Http = new XMLHttpRequest();
+    const url = 'https://localhost:44321/Sessions/12bb12';
+    Http.open("PUT", url);
+    Http.setRequestHeader('Content-Type', 'application/json');
+    Http.send(JSON.stringify({
+        "Id": "12bb12",
+        "Status": "RESUME",
+        "UserAdress": "225.225.225.1",
+        "IdVIdeo": "video"
+    }));
+
+    Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+    }
+};
+//event: PAUSE
 vid.onpause = function () {
-    alert("The video has been paused");
+    const Http = new XMLHttpRequest();
+    const url = 'https://localhost:44321/Sessions/12bb12';
+    Http.open("PUT", url);
+    Http.setRequestHeader('Content-Type', 'application/json');
+    Http.send(JSON.stringify({
+        "Id": "12bb12",
+        "Status": "PAUSE",
+        "UserAdress": "225.225.225.1",
+        "IdVIdeo": "video"
+    }));
+
+    Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+    }
 };
+//event: SEEK
 vid.onseeking = function () {
-    alert("Seek operation began!");
+    const Http = new XMLHttpRequest();
+    const url = 'https://localhost:44321/Sessions/12bb12';
+    Http.open("PUT", url);
+    Http.setRequestHeader('Content-Type', 'application/json');
+    Http.send(JSON.stringify({
+        "Id": "12bb12",
+        "Status": "SEEK",
+        "UserAdress": "225.225.225.1",
+        "IdVIdeo": "video"
+    }));
+
+    Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+    }
 };

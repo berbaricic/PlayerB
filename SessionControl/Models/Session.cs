@@ -9,7 +9,7 @@ namespace SessionControl.Models
     public class Session
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Status { get; set; }
         public string UserAdress { get; set; }
         public string IdVIdeo { get; set; }
