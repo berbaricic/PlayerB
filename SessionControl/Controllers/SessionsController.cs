@@ -24,11 +24,13 @@ namespace SessionControl.Controllers
 
         //GET: Sessions/sessionId
         [HttpGet("{sessionId}")]
-        public async Task<ActionResult<Session>> GetSession(string sessionId)
-        {
+        public Session GetSession(string sessionId)
+        {            
             string key = RedisStore.GenerateKey(sessionId);
             var cachedSession = _cache.StringGet(key);
             var session = JsonConvert.DeserializeObject<Session>(cachedSession);
+            session.RequestTime = RedisStore.GetTimestamp();
+            _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
             return session;
         }
 
@@ -36,16 +38,20 @@ namespace SessionControl.Controllers
         [HttpPost]
         public void PostSession([FromBody]Session session)
         {
+            session.RequestTime = RedisStore.GetTimestamp();
             string key = RedisStore.GenerateKey(session.Id);
             _cache.StringSet(key, JsonConvert.SerializeObject(session));
+            _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
         }
 
         //PUT: Sessions/sessionId
         [HttpPut("{sessionId}")]
         public void PutSession(string sessionId, [FromBody] Session session)
         {
+            session.RequestTime = RedisStore.GetTimestamp();
             string key = RedisStore.GenerateKey(sessionId);
             _cache.StringSet(key, JsonConvert.SerializeObject(session));
+            _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
         }
     }
 }

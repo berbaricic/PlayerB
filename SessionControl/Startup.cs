@@ -25,13 +25,6 @@ namespace SessionControl
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
             services.AddScoped(s => redis.GetDatabase());
 
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
-
             services.AddDbContext<SessionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SessionConn")));
 
             services.AddControllersWithViews();
@@ -56,8 +49,6 @@ namespace SessionControl
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

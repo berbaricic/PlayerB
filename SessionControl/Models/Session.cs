@@ -13,5 +13,6 @@ namespace SessionControl.Models
         public string Status { get; set; }
         public string UserAdress { get; set; }
         public string IdVIdeo { get; set; }
+        public int RequestTime { get; set; }
     }
 }
