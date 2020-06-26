@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using SessionControl.Models;
 using StackExchange.Redis;
 
-
 namespace SessionControl.Controllers
 {
     [Route("[controller]")]
