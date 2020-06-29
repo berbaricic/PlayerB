@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
 using SessionControl.Models;
 using StackExchange.Redis;
 
@@ -24,8 +23,6 @@ namespace SessionControl
         {
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
             services.AddScoped(s => redis.GetDatabase());
-
-            services.AddDbContext<SessionContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SessionConn")));
 
             services.AddControllersWithViews();
         }

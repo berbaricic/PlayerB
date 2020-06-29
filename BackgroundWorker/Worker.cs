@@ -32,6 +32,7 @@ namespace BackgroundWorker
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
+            //Connection to Redis Cache
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
             _cache = redis.GetDatabase();
             return base.StartAsync(cancellationToken);
@@ -58,7 +59,7 @@ namespace BackgroundWorker
 
                     //value save to sql db
                     string sqlSessionInsert = "INSERT INTO Session VALUES ('" + session.Id + "','" + session.Status + "','" +
-                        session.UserAdress + "','" + session.IdVIdeo + "'," + session.RequestTime + ");";
+                        session.UserAdress + "','" + session.IdVideo + "'," + session.RequestTime + ");";
                     using (IDbConnection db = this.OpenConnection())
                     {
                         var rows = db.Execute(sqlSessionInsert);
@@ -68,7 +69,7 @@ namespace BackgroundWorker
                     _cache.KeyDelete(item.ToString());
                     _cache.SortedSetRemove("SortedSetOfRequestsTime", item);
                 }
-
+                //Wait 60 seconds and then repeat
                 await Task.Delay(60*1000, stoppingToken);
             }
         }

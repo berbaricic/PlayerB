@@ -1,7 +1,6 @@
 ﻿
 var vid = document.getElementById("myVideo");
-//var videoSource = vid.getElementsByTagName("source")[0].src;
-//var idVideo = "\"" + videoSource + "\"";
+//to create and track different sessions, you need change Id from JSON body and Id in URL path
 //event: PLAY
 vid.onplay = function () {
     const Http = new XMLHttpRequest();
@@ -14,7 +13,7 @@ vid.onplay = function () {
         "Id": "12bb15",
         "Status": "PLAY",
         "UserAdress": "225.225.225.1",
-        "IdVIdeo": "video"
+        "IdVideo": "video"
     }));
 
     Http.onreadystatechange = (e) => {
@@ -33,7 +32,7 @@ vid.onplaying = function () {
         "Id": "12bb15",
         "Status": "RESUME",
         "UserAdress": "225.225.225.1",
-        "IdVIdeo": "video"
+        "IdVideo": "video"
     }));
 
     Http.onreadystatechange = (e) => {
@@ -52,7 +51,7 @@ vid.onpause = function () {
         "Id": "12bb15",
         "Status": "PAUSE",
         "UserAdress": "225.225.225.1",
-        "IdVIdeo": "video"
+        "IdVideo": "video"
     }));
 
     Http.onreadystatechange = (e) => {
@@ -71,7 +70,7 @@ vid.onseeking = function () {
         "Id": "12bb15",
         "Status": "SEEK",
         "UserAdress": "225.225.225.1",
-        "IdVIdeo": "video"
+        "IdVideo": "video"
     }));
 
     Http.onreadystatechange = (e) => {
@@ -90,7 +89,7 @@ vid.onended = function () {
         "Id": "12bb15",
         "Status": "ENDED",
         "UserAdress": "225.225.225.1",
-        "IdVIdeo": "video"
+        "IdVideo": "video"
     }));
 
     Http.onreadystatechange = (e) => {
