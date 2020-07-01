@@ -20,8 +20,4 @@
   <ItemGroup>
     <ProjectReference Include="..\SessionControl\SessionControl.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
 </Project>

@@ -49,12 +49,16 @@ namespace BackgroundWorker
                 timestampLimit = timestampNow - 60;
 
                 //command - ZRANGEBYSCORE key min(-inf) max(timestampLimit)
-                RedisValue[] values = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", stop: timestampLimit);
+                //Expired values
+                RedisValue[] expireValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", stop: timestampLimit);
+                //command - ZRANGEBYSCORE key min(timestampLimit) max(+inf)
+                //Finished values (status = finished)
+                RedisValue[] finishedValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", start: timestampLimit);
 
-                foreach (var item in values)
+                foreach (var expired in expireValues)
                 {
                     //stringGet(item) --> value
-                    var cachedSession = _cache.StringGet(item.ToString());
+                    var cachedSession = _cache.StringGet(expired.ToString());
                     var session = JsonConvert.DeserializeObject<Session>(cachedSession);
 
                     //value save to sql db
@@ -66,11 +70,34 @@ namespace BackgroundWorker
                     }
 
                     //After saving to db, remove key from cache
-                    _cache.KeyDelete(item.ToString());
-                    _cache.SortedSetRemove("SortedSetOfRequestsTime", item);
+                    _cache.KeyDelete(expired.ToString());
+                    _cache.SortedSetRemove("SortedSetOfRequestsTime", expired);
+                }
+                foreach (var finished in finishedValues)
+                {
+                    //stringGet(item) --> value
+                    var cachedSession = _cache.StringGet(finished.ToString());
+                    var session = JsonConvert.DeserializeObject<Session>(cachedSession);
+                    if (session.Status == "FINISHED")
+                    {
+                        //value save to sql db
+                        string sqlSessionInsert = "INSERT INTO Session VALUES ('" + session.Id + "','" + session.Status + "','" +
+                            session.UserAdress + "','" + session.IdVideo + "'," + session.RequestTime + ");";
+                        using (IDbConnection db = this.OpenConnection())
+                        {
+                            var rows = db.Execute(sqlSessionInsert);
+                        }
+
+                        //After saving to db, remove key from cache
+                        _cache.KeyDelete(finished.ToString());
+                        _cache.SortedSetRemove("SortedSetOfRequestsTime", finished);
+                    }
+                    
                 }
                 //Wait 60 seconds and then repeat
+                _logger.LogInformation("Hej! Odradio sam posao, moram odmorit 60 sekundi.");
                 await Task.Delay(60*1000, stoppingToken);
+                _logger.LogInformation("Ajmo nazad na posao.");
             }
         }
         public override Task StopAsync(CancellationToken cancellationToken)
