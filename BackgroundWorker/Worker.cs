@@ -53,8 +53,8 @@ namespace BackgroundWorker
                 RedisValue[] expireValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", stop: timestampLimit);
                 //command - ZRANGEBYSCORE key min(timestampLimit) max(+inf)
                 //Finished values (status = finished)
-                RedisValue[] finishedValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", start: timestampLimit);
-
+                RedisValue[] finishedValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", start: timestampLimit + 1);
+                _logger.LogInformation("Slijedi posao provjere isteklih sesija.");
                 foreach (var expired in expireValues)
                 {
                     //stringGet(item) --> value
@@ -73,6 +73,7 @@ namespace BackgroundWorker
                     _cache.KeyDelete(expired.ToString());
                     _cache.SortedSetRemove("SortedSetOfRequestsTime", expired);
                 }
+                _logger.LogInformation("Slijedi posao provjere sesija sa statusom FINISHED.");
                 foreach (var finished in finishedValues)
                 {
                     //stringGet(item) --> value
@@ -96,8 +97,7 @@ namespace BackgroundWorker
                 }
                 //Wait 60 seconds and then repeat
                 _logger.LogInformation("Hej! Odradio sam posao, moram odmorit 60 sekundi.");
-                await Task.Delay(60*1000, stoppingToken);
-                _logger.LogInformation("Ajmo nazad na posao.");
+                await Task.Delay(60*1000, stoppingToken);               
             }
         }
         public override Task StopAsync(CancellationToken cancellationToken)
