@@ -20,6 +20,8 @@ namespace BackgroundWorker
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
+                    services.AddTransient<ISqlDatabase, SqlDatabase>();
+                    services.AddTransient<IConnectionSql, ConnectionSql>();
                 });
     }
 }
