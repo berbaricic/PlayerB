@@ -11,8 +11,8 @@ na playeru. Sesija započinje prilikom play-a playera te traje do gašenja playe
 
 Rješenje projekta dijelimo na 5 komponenata: klijentska aplikacija, web servis, cache, baza i backgroundworker.
 
-  * Klijentska aplikacija: u aplikaciji se nalazi videoplayer koji sadrži događaje (play, pause, seek, ended). Korištenjem aplikacije korisnik aktivira događaje 
-  koji šalju zahtjeve (requests) na Web API kontroler te potom se određene akcije odvijaju.
+  * Klijentska aplikacija (VideoPlayer): Angular aplikacija u kojoj je omogućeno pokretanje YouTube videa. Početna stranica sadrži pretragu videa te popis YouTube videa, točnije prikaz umanjenih slika gdje svaka predstavlja jedan YouTube video. Odabirom jedne od tih link-slika, otvara se novi page gdje se može pokrenuti video. Prilikom pokretanja videa, događaju se određeni događaji (Unstarted -> Buffering -> Playing). S događajem "Playing" kreiramo novi HTTP POST zahjev koji predstavlja pokretanje nove sesije. Na svaku izmjenu događaja, s PUT metodom izmjenjujemo status sesije koja je spremjena u cache-u. Provjeru istekle ili završene sesije obaviti će BackgroundWorker.
+  Angular aplikacija sastavljena je od dva modula: standardni "app.module" te novokreirani "video.module". "video.module" import-a "YouTubePlayerModule" koji nam omogućuje sam YT player kao i praćanje događaja na njemu te HttpClientModule" koji nam služi za slanje HTTP zahtjeva na Web API. Također, sam "video.module" import-amo u "app.module" (root module) koji pokreće aplikaciju te bez toga import-a "video.module" ne bi imao svrhu. Dodavanjem "video.module" stvorili bolju organizaciju aplikacije jer sam dodali novi blok funkcionalnosti. 
   * Web API: u API kontroleru se nalaze tri metode za obradu zahtjeva (GET, POST, PUT). Aktiviranjem događaja "play", s POST metodom kreira se novi objekt 
   u cache-u te spremaju se sljedeći podaci (atributi): Id, Status, UserAdress, IdVideo, RequestTime. Svako iduće aktiviranje nekog od događaja, s PUT metodom izmjenjuje se
   "Status" postojećeg objekta.
@@ -59,6 +59,7 @@ Za izradu projekta korištene su sljedeće tehnologije:
       - ASP.NET Core MVC
       - StackExchange.Redis: Redis klijent za C#
       - Dapper: micro ORM (mapiranje između baze i C#-a)
+      - Angular 8     
   * Redis Cache
   * Microsoft SQL Server 2019
   * Microsoft SQL Server Managment Studio 2019
