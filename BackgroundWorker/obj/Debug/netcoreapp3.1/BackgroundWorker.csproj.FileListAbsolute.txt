@@ -59,7 +59,6 @@ C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcore
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\SessionControl.Views.dll
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\SessionControl.Views.pdb
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
-C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\SessionControl.exe
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
@@ -136,3 +135,4 @@ C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcore
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\SessionControl.dll
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\SessionControl.pdb
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\obj\Debug\netcoreapp3.1\BackgroundWorker.csproj.CoreCompileInputs.cache
+C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\SessionControl.exe

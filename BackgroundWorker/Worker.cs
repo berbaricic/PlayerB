@@ -36,13 +36,14 @@ namespace BackgroundWorker
             {
                 //time when background worker start checking 
                 timestampNow = (int)new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds();
+                logger.LogInformation("Vrijeme paljenja: " + timestampNow.ToString());
                 //sessions with time before this (timestampLimit) are invalid
                 timestampLimit = timestampNow - 60;
+                logger.LogInformation("Vrijeme limit: " + timestampLimit.ToString());
 
                 //command - ZRANGEBYSCORE key min(-inf) max(timestampLimit)
                 //Expired values
-                RedisValue[] expireValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", stop: timestampLimit);
-                //command - ZRANGEBYSCORE key min(timestampLimit) max(+inf)
+                RedisValue[] expireValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", stop: timestampLimit);              
 
                 foreach (var expired in expireValues)
                 {
@@ -58,6 +59,7 @@ namespace BackgroundWorker
                     _cache.SortedSetRemove("SortedSetOfRequestsTime", expired);
                 }
 
+                //command - ZRANGEBYSCORE key min(timestampLimit) max(+inf)
                 //Finished values (status = finished)
                 RedisValue[] finishedValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", start: timestampLimit + 1);
 
