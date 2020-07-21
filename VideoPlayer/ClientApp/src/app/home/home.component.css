@@ -1,8 +1,19 @@
-* {
+.ytcontainer {
+  text-align:center;
+}
+
+.searchbox {
+  font-size: 20px;
+  width: 60%;
+  display: inline-block;
+  text-align: center;
+}
+
+
+/** {
   box-sizing: border-box;
   text-align: center;
 }
-/* Style the search field */
 form.searchbox input[type=text] {
   text-align: left;
   padding: 10px;
@@ -12,7 +23,6 @@ form.searchbox input[type=text] {
   background: #ffffff;
 }
 
-/* Style the submit button */
 form.searchbox button {
   width: 10%;
   padding: 10px;
@@ -20,7 +30,7 @@ form.searchbox button {
   color: white;
   font-size: 17px;
   border: 1px solid grey;
-  border-left: none; /* Prevent double borders */
+  border-left: none; 
   cursor: pointer;
 }
 
@@ -28,7 +38,6 @@ form.searchbox button {
     background: #bfbfbf;
   }
 
-/* Clear floats */
 form.searchbox::after {
   content: "";
   clear: both;
@@ -64,4 +73,5 @@ div.description {
 
   div.description p {
     text-align: left;
-  }
+  }*/
+ 

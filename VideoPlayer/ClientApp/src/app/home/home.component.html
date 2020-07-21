@@ -1,12 +1,12 @@
  <!-- Load icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
 <!-- The form -->
-<form class="searchbox" action="action_page.php">
+<!--<form class="searchbox" action="action_page.php">
   <input type="text" placeholder="Search.." name="search">
   <button type="submit"><i class="fa fa-search"></i></button>
-</form>
-<div class="videocontainer">
+</form>-->
+<!--<div class="videocontainer">
   <ul class="videoslist">
     <li>
       <div class="videoimg">
@@ -58,4 +58,15 @@
     </li>
 
   </ul>
+</div>-->
+
+<div class="ytcontainer">
+  <div class="searchbox">
+      <app-search-box (loading)="loading = $event" (results)="updateResults($event)"></app-search-box>
+  </div>
+
+  <div class="row" style="margin-top:20px">
+    <p>{{message}}</p>
+    <app-search-result *ngFor="let result of results" [result]="result"></app-search-result>
+  </div>
 </div>

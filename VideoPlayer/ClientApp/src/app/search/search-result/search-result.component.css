@@ -1,0 +1,13 @@
+.searchresult {
+  text-align: left;
+  display:inline-block;
+  padding: 12px;
+}
+.thumbnail {
+  float: left;
+  padding-right: 20px;
+}
+.caption {
+  text-align: left;
+}
+

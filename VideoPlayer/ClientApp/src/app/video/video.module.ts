@@ -5,8 +5,6 @@ import { RouterModule } from '@angular/router';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { HttpClientModule } from '@angular/common/http';
 
-
-
 @NgModule({
   declarations: [VideoComponent],
   exports: [VideoComponent],
