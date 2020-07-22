@@ -6,8 +6,6 @@ vid.onplay = function () {
     const Http = new XMLHttpRequest();
     const url = 'https://localhost:44321/Sessions';
     Http.open("POST", url);
-    var date = new Date();
-    date.toJSON;
     Http.setRequestHeader('Content-Type', 'application/json');
     Http.send(JSON.stringify({
         "Id": "12bb15",

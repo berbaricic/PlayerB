@@ -9,6 +9,11 @@
   text-align: center;
 }
 
+.row p{
+  font-size: 30px;
+  margin-left: 10px;
+}
+
 
 /** {
   box-sizing: border-box;

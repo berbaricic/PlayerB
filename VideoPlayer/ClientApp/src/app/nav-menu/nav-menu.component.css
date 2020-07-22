@@ -16,3 +16,10 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+.navbar-brand{
+  padding-left: 8px;
+}
+.tvimage{
+  position: relative;
+  top: -1px;
+}
