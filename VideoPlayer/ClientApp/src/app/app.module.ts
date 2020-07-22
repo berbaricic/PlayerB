@@ -25,6 +25,8 @@ import { AboutComponent } from './about/about.component';
     FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '**', redirectTo: 'home', pathMatch: 'full' },
       { path: 'about', component: AboutComponent},
     ]),
     VideoModule,

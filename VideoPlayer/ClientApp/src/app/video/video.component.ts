@@ -52,7 +52,7 @@ export class VideoComponent implements OnInit
       console.log("Status:", "UNSTARTED");
       this.sessiondata.create({
         Id: this.idSession,
-        Status: 'PLAY',
+        Status: 'UNSTARTED',
         UserAdress: this.ipAdress,
         IdVideo: this.id
       });
@@ -67,10 +67,10 @@ export class VideoComponent implements OnInit
       }, this.idSession);
     }
     else if (event.data == 1) {
-      console.log("Status:", "RESUME");
+      console.log("Status:", "PLAY");
       this.sessiondata.update({
         Id: this.idSession,
-        Status: 'RESUME',
+        Status: 'PLAY',
         UserAdress: this.ipAdress,
         IdVideo: this.id
       }, this.idSession);
