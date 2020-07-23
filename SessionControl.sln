@@ -7,7 +7,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SessionControl", "SessionCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundWorker", "BackgroundWorker\BackgroundWorker.csproj", "{C4BCC255-BA30-45D2-BEC7-E7C03B288F1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPlayer", "VideoPlayer\VideoPlayer.csproj", "{14FBB984-D616-4809-A3BE-F70F5D414FED}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "VideoplayerApp", "VideoplayerApp\", "{151423E3-9B3A-404C-81BD-891FDAFF78F8}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_61515"
+		Debug.AspNetCompiler.PhysicalPath = "VideoplayerApp\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61515\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_61515"
+		Release.AspNetCompiler.PhysicalPath = "VideoplayerApp\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61515\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "61515"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +41,10 @@ Global
 		{C4BCC255-BA30-45D2-BEC7-E7C03B288F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4BCC255-BA30-45D2-BEC7-E7C03B288F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4BCC255-BA30-45D2-BEC7-E7C03B288F1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14FBB984-D616-4809-A3BE-F70F5D414FED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14FBB984-D616-4809-A3BE-F70F5D414FED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14FBB984-D616-4809-A3BE-F70F5D414FED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14FBB984-D616-4809-A3BE-F70F5D414FED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{151423E3-9B3A-404C-81BD-891FDAFF78F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{151423E3-9B3A-404C-81BD-891FDAFF78F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{151423E3-9B3A-404C-81BD-891FDAFF78F8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{151423E3-9B3A-404C-81BD-891FDAFF78F8}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

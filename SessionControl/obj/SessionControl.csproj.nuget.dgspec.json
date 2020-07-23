@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Berislav\\source\\repos\\SessionControl\\SessionControl\\SessionControl.csproj": {}
+    "C:\\Users\\Berislav\\source\\repos\\SessionControl\\sessioncontrol\\SessionControl.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Berislav\\source\\repos\\SessionControl\\SessionControl\\SessionControl.csproj": {
+    "C:\\Users\\Berislav\\source\\repos\\SessionControl\\sessioncontrol\\SessionControl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\SessionControl\\SessionControl.csproj",
+        "projectUniqueName": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\sessioncontrol\\SessionControl.csproj",
         "projectName": "SessionControl",
-        "projectPath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\SessionControl\\SessionControl.csproj",
+        "projectPath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\sessioncontrol\\SessionControl.csproj",
         "packagesPath": "C:\\Users\\Berislav\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\SessionControl\\obj\\",
+        "outputPath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\sessioncontrol\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Berislav\\AppData\\Roaming\\NuGet\\NuGet.Config",
