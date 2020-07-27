@@ -7,9 +7,10 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
 import { VideoModule } from './video/video.module';
 import { SearchModule } from 'src/app/search/search.module';
-import { AboutComponent } from './about/about.component';
+
 
 
 @NgModule({
@@ -26,8 +27,7 @@ import { AboutComponent } from './about/about.component';
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: '**', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'about', component: AboutComponent},
+      { path: 'about', component: AboutComponent}
     ]),
     VideoModule,
     SearchModule
