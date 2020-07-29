@@ -1,4 +1,5 @@
 FROM node:12
+RUN mkdir -p /helou
 WORKDIR /helou
 COPY VideoplayerApp/package*.json /helou/
 RUN npm install
