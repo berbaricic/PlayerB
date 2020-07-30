@@ -1,8 +1,8 @@
 FROM node:12
-RUN mkdir /app
+RUN mkdir -p /app
 WORKDIR /app
-COPY VideoplayerApp/package*.json /app/angular-app/
-RUN npm install --prefix angular-app
+COPY VideoplayerApp/package.json /app
+RUN npm install
 COPY . /app
 EXPOSE 4200
 CMD ["npm", "start"]
