@@ -16,7 +16,7 @@ namespace BackgroundWorker
         public SqlConnection OpenConnection()
         {
             SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = configuration.GetConnectionString("SQLConnection");
+            connection.ConnectionString = configuration.GetConnectionString("sqlconnection");
             connection.Open();
             return connection;
         }
