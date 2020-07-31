@@ -21,7 +21,9 @@ namespace SessionControl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+            string configString = Configuration.GetConnectionString("redis");
+            var options = ConfigurationOptions.Parse(configString);
+            IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
             services.AddScoped(s => redis.GetDatabase());
 
             services.AddControllersWithViews();
