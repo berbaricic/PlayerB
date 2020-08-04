@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  angular:
+    build: 
+      context: .
+      dockerfile: ./VideoplayerApp/Dockerfile
+    container_name: angular
+    depends_on:
+      - webapi
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./VideoplayerApp:/app
+ 
+  webapi:
+    build: 
+      context: .
+      dockerfile: ./SessionControl/Dockerfile 
+    container_name: webapi
+    depends_on:
+      - redis
+    expose: 
+      - "443"
+    ports:
+      - "5000:80"
+
+  worker:
+    build: 
+      context: .
+      dockerfile: ./BackgroundWorker/Dockerfile
+    container_name: worker
+    depends_on:
+      - redis
+      - database
+
+  redis:
+    image: "redis:latest"
+    container_name: redis
+    ports:
+      - "6379:6379"    
+
+  database:
+    image: "mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04"
+    container_name: sql1
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Pa$$word2020"
+    expose:
+      - "1433"
+    ports:
+      - "1433:1433"
+    

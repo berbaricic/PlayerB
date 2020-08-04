@@ -15,7 +15,7 @@ export class VideoComponent implements OnInit
 {
   player: YT.Player;
   private id: string;
-  private origin: "https://localhost:44322";
+  private origin: "http://localhost:5000";
   ipAdress: any;
   idSession: string;
   state: string;
