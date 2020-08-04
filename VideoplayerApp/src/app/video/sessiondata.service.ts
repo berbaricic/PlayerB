@@ -6,7 +6,7 @@ import { HttpClient} from '@angular/common/http';
 })
 export class SessiondataService {
 
-  private baseUrl = 'https://localhost:5000/Sessions';
+  private baseUrl = 'http://localhost:5000/Sessions';
 
   constructor(private http: HttpClient) { }
 

@@ -45,7 +45,7 @@ services:
     container_name: sql1
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Pa$$word2020"
+      SA_PASSWORD: "Pa&&word2020"
     expose:
       - "1433"
     ports:
