@@ -50,7 +50,7 @@ services:
 
   database:
     image: "mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04"
-    container_name: mssql
+    container_name: database
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "Pa&&word2020"
