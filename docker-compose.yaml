@@ -58,4 +58,6 @@ services:
       - "1433"
     ports:
       - "1433:1433"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
     
