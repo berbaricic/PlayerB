@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -8,15 +9,19 @@ namespace BackgroundWorker
 {
     class ConnectionSql : IConnectionSql
     {
-        private readonly IConfiguration configuration;
         public ConnectionSql(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
+
         public SqlConnection OpenConnection()
         {
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = configuration.GetConnectionString("sqlconnection");
+            SqlConnection connection = new SqlConnection
+            {
+                ConnectionString = Configuration.GetConnectionString("database")
+            };
             connection.Open();
             return connection;
         }
