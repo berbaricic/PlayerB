@@ -1,11 +1,13 @@
-FROM mcr.microsoft.com/mssql/server
+FROM mcr.microsoft.com/mssql/server:2019-CU6-ubuntu-16.04
+
+USER root
 
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Copy initialization scripts
-COPY MSSQL/ /usr/src/app
+COPY . /usr/src/app
 
 # Grant permissions for the run-initialization script to be executable
 RUN chmod +x /usr/src/app/run-initialization.sh
