@@ -12,17 +12,12 @@ services:
       - ./VideoplayerApp:/app
 
   database:
-    image: "mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04"
+    build: 
+      context: .
+      dockerfile: ./MSSQL/Dockerfile
     container_name: database
-    environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Pa&&word2020"
-    expose:
-      - "1433"
     ports:
-      - "1433:1433"
-    volumes: ../sqldata:/var/opt/mssql/data
-      
+      - "1433:1433"     
  
   webapi:
     build: 
@@ -40,8 +35,6 @@ services:
       context: .
       dockerfile: ./BackgroundWorker/Dockerfile
     container_name: worker
-    enviroment:
-      DBServer: "database"
     depends_on:
       - redis
       - database
