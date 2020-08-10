@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+FROM mcr.microsoft.com/mssql/server
 
 # Create app directory
 RUN mkdir -p /usr/src/app
