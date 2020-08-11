@@ -55,6 +55,19 @@ Na kraju Thread grupe imamo dva reporta: "View Results Report" i "Aggregate Repo
 
 Pozadinski dio ovog testa je isto uspješan. Background Worker je uspješno periodički (svakih 60 sekundi) obavljao perzistenciju - provjeravao istekle sesije te sesije sa statusom FINISHED, iste spremao u bazu te brisao ih iz cache-a.
 
+## Pokretanje komponenata
+
+Kako bi pokrenuli svih 5 komponenata, dovoljno je preuzeti docker-compose.yaml datoteku koja se nalazi u glavnom direktoriju ovog repozitorija. Nakon preuzimanja, navedenu datoteku možemo spremiti u određeni folder na našem računalu. Uz pomoć omiljenog terminala navodimo se do tog foldera te ulazimo u njega. Uz preduvjet da je Docker već instaliran na računalu, s naredbom "docker-compose up --build" možemo preuzeti slike i pokrenuti kontejnere. 
+* Angular aplikacija dostupna na: http://localhost:4200
+* Web Api dostupan na: http://localhost:5000
+* Ostale komponente možemo razmatrati preko njihovih CLI-a (redis-cli, sqlcmd) ili preko logova na Docker Desktopu.
+
+Na slici ispod vidimo da je pokrenuto svih 5 komponenata te možemo vidjeti nazive kontejnera, nazive njihovih image-a te koji su portovi pridjeljeni u kontejnerima.
+
+ <p align="center">
+  <img src="https://user-images.githubusercontent.com/18721181/89890312-6a867300-dbd3-11ea-8121-6f7d7e06dc30.PNG">
+</p>
+
 ## Tehnologije
 Za izradu projekta korištene su sljedeće tehnologije:
   * Microsoft Visual Studio 2019 Community
@@ -64,8 +77,8 @@ Za izradu projekta korištene su sljedeće tehnologije:
       - Angular 8     
   * Redis Cache
   * Microsoft SQL Server 2019
-  * Microsoft SQL Server Managment Studio 2019
-  * Docker - pokretanje MsSQL Server i Redis Cache container image-a
+  * Microsoft SQL Server Managment Studio 2018
+  * Docker 
   * Postman - Web API testiranje
   * JMeter - load testiranje
   
