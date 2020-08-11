@@ -8,8 +8,6 @@ services:
     container_name: angular
     ports:
       - "4200:4200"
-    volumes:
-      - ./VideoplayerApp:/app
 
   database:
     build: 
@@ -48,6 +46,5 @@ services:
     container_name: redis
     ports:
       - "6379:6379" 
-    volumes:
-      - ./data:/data   
+  
     
