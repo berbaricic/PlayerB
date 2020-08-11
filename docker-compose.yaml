@@ -15,6 +15,7 @@ services:
     build: 
       context: .
       dockerfile: ./MSSQL/Dockerfile
+    restart: always
     container_name: database
     ports:
       - "1433:1433"     
@@ -34,11 +35,12 @@ services:
     build: 
       context: .
       dockerfile: ./BackgroundWorker/Dockerfile
+    restart: always
     container_name: worker
     depends_on:
       - redis
       - database
-    ports: 
+    ports:
       - "5100:5100"
 
   redis:

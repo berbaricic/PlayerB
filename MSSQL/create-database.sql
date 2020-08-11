@@ -2,11 +2,11 @@ CREATE DATABASE SessionDatabase;
 GO
 USE SessionDatabase;
 GO
-CREATE TABLE [dbo].[Session](
-	[Id] [nvarchar](50) NOT NULL,
-	[Status] [nvarchar](max) NULL,
-	[UserAdress] [nvarchar](max) NULL,
-	[IdVideo] [nvarchar](max) NULL,
+CREATE TABLE [Session](
+	[Id] [varchar](50) NOT NULL,
+	[Status] [varchar](max) NULL,
+	[UserAdress] [varchar](max) NULL,
+	[IdVideo] [varchar](max) NULL,
 	[RequestTime] [int] NULL,
  CONSTRAINT [PK_Session] PRIMARY KEY CLUSTERED 
 (

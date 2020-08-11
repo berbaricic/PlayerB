@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,19 +10,20 @@ namespace BackgroundWorker
 {
     class ConnectionSql : IConnectionSql
     {
-        public ConnectionSql(IConfiguration configuration)
+        private readonly ILogger<Worker> logger;
+
+        public ConnectionSql(IConfiguration configuration, ILogger<Worker> logger)
         {
             Configuration = configuration;
+            this.logger = logger;
         }
 
         public IConfiguration Configuration { get; }
 
         public SqlConnection OpenConnection()
         {
-            SqlConnection connection = new SqlConnection
-            {
-                ConnectionString = Configuration.GetConnectionString("database")
-            };
+            SqlConnection connection = new SqlConnection("Server = database; Database = SessionDatabase; User = sa; Password = Pa&&word2020");
+            //connection.ConnectionString = Configuration.GetConnectionString("database");
             connection.Open();
             return connection;
         }

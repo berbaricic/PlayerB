@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -37,6 +37,7 @@ namespace BackgroundWorker
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            //await Task.Delay(60 * 1000, stoppingToken);
             int timestampNow;
             int timestampLimit;
             while (!stoppingToken.IsCancellationRequested)
@@ -57,10 +58,8 @@ namespace BackgroundWorker
                     //stringGet(item) --> value
                     var cachedSession = _cache.StringGet(expired.ToString());
                     var session = JsonConvert.DeserializeObject<Session>(cachedSession);
-
                     //value save to sql db
                     this.sqlDatabase.SaveToDatabase(session);
-
                     //After saving to db, remove key from cache
                     _cache.KeyDelete(expired.ToString());
                     _cache.SortedSetRemove("SortedSetOfRequestsTime", expired);
@@ -79,7 +78,6 @@ namespace BackgroundWorker
                     {
                         //value save to sql db
                         this.sqlDatabase.SaveToDatabase(session);
-
                         //After saving to db, remove key from cache
                         _cache.KeyDelete(finished.ToString());
                         _cache.SortedSetRemove("SortedSetOfRequestsTime", finished);

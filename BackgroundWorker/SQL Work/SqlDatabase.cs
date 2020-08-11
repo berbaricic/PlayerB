@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using SessionControl.Models;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace BackgroundWorker
     public class SqlDatabase : ISqlDatabase
     {
         private readonly IConnectionSql connectionSql;
+        private readonly ILogger<Worker> logger;
 
-        public SqlDatabase(IConnectionSql connectionSql)
+        public SqlDatabase(IConnectionSql connectionSql, ILogger<Worker> logger)
         {
             this.connectionSql = connectionSql;
+            this.logger = logger;
         }
 
         public void SaveToDatabase(Session session)
