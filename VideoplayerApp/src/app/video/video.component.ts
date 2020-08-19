@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { SessiondataService } from './sessiondata.service';
 import { HttpClient } from '@angular/common/http';
 import { v4 as uuid } from 'uuid';
-import { setInterval } from 'timers';
+//import { setInterval } from 'timers';
 
 @Component({
   selector: 'app-video',
