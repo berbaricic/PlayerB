@@ -56,7 +56,8 @@ export class VideoComponent implements OnInit, OnDestroy
 
   sendPing() {
     this.statusFromFunction = this.getPlayerStatus;
-    console.log("Update iz sendPing: " + this.statusFromFunction);
+    this.playerStatus = this.player.getPlayerState();
+    console.log("Update iz sendPing: " + this.playerStatus.toString());
     this.sessiondata.update({
       Id: this.idSession,
       Status: this.statusFromFunction,
@@ -65,7 +66,7 @@ export class VideoComponent implements OnInit, OnDestroy
     }, this.idSession);
   }
 
-  getPlayerStatus(): string {
+  getPlayerStatus(): any {
     this.playerStatus = this.player.getPlayerState();
     if (this.playerStatus == 0) {
       return 'ENDED';
