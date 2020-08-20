@@ -19,7 +19,7 @@ export class VideoComponent implements OnInit, OnDestroy
   ipAdress: any;
   idSession: string;
   intervalId: any;
-  isVideoPlay: boolean = false;
+  isVideoPlay: boolean;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -30,6 +30,7 @@ export class VideoComponent implements OnInit, OnDestroy
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.idSession = uuid();
+    this.isVideoPlay = false;
   }
 
   savePlayer(player){
@@ -52,15 +53,17 @@ export class VideoComponent implements OnInit, OnDestroy
   }
 
   sendPing() {
+    console.log("Update iz sendPing: " + this.getPlayerStatus);
     this.sessiondata.update({
       Id: this.idSession,
-      Status: this.getPlayerStatus(),
+      Status: this.getPlayerStatus,
       UserAdress: this.ipAdress,
       IdVideo: this.id
     }, this.idSession);
   }
 
   getPlayerStatus(): string {
+    console.log("Poziv funkcije: " + this.player.getPlayerState());
     const playerStatus = this.player.getPlayerState();
     if (playerStatus == 0) {
       return 'ENDED';
@@ -69,7 +72,7 @@ export class VideoComponent implements OnInit, OnDestroy
       return 'PLAY';
     }
     else if (playerStatus == 2) {
-      return 'PAUSED';
+      return 'PAUSE';
     }
     else if (playerStatus == 3) {
       return 'BUFFERING';
@@ -81,7 +84,7 @@ export class VideoComponent implements OnInit, OnDestroy
 
   ngOnDestroy() {
     if (this.isVideoPlay == true) {
-      console.log("Status:", "CLOSED");
+      console.log("Status:", "FINISHED");
       this.sessiondata.update({
         Id: this.idSession,
         Status: 'FINISHED',
