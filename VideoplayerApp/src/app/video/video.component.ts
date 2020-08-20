@@ -21,6 +21,7 @@ export class VideoComponent implements OnInit, OnDestroy
   intervalId: any;
   isVideoPlay: boolean;
   statusFromFunction: any;
+  playerStatus: number;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -54,7 +55,6 @@ export class VideoComponent implements OnInit, OnDestroy
   }
 
   sendPing() {
-    console.log("Update iz sendPing: " + this.player.getPlayerState());
     this.statusFromFunction = this.getPlayerStatus;
     console.log("Update iz sendPing: " + this.statusFromFunction);
     this.sessiondata.update({
@@ -66,20 +66,20 @@ export class VideoComponent implements OnInit, OnDestroy
   }
 
   getPlayerStatus(): string {
-    const playerStatus = this.player.getPlayerState();
-    if (playerStatus == 0) {
+    this.playerStatus = this.player.getPlayerState();
+    if (this.playerStatus == 0) {
       return 'ENDED';
     }
-    else if (playerStatus == 1) {
+    else if (this.playerStatus == 1) {
       return 'PLAY';
     }
-    else if (playerStatus == 2) {
+    else if (this.playerStatus == 2) {
       return 'PAUSE';
     }
-    else if (playerStatus == 3) {
+    else if (this.playerStatus == 3) {
       return 'BUFFERING';
     }
-    else if (playerStatus == 5) {
+    else if (this.playerStatus == 5) {
       return 'VIDEO_CUED';
     }
   }
