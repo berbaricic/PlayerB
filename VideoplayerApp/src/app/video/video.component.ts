@@ -20,6 +20,7 @@ export class VideoComponent implements OnInit, OnDestroy
   idSession: string;
   intervalId: any;
   isVideoPlay: boolean;
+  statusFromFunction: any;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -53,10 +54,12 @@ export class VideoComponent implements OnInit, OnDestroy
   }
 
   sendPing() {
-    console.log("Update iz sendPing: " + this.getPlayerStatus);
+    console.log("Update iz sendPing: " + this.getPlayerStatus());
+    this.statusFromFunction = this.getPlayerStatus();
+    console.log("Update iz sendPing: " + this.statusFromFunction);
     this.sessiondata.update({
       Id: this.idSession,
-      Status: this.getPlayerStatus,
+      Status: this.statusFromFunction,
       UserAdress: this.ipAdress,
       IdVideo: this.id
     }, this.idSession);
