@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { SessiondataService } from './sessiondata.service';
 import { HttpClient } from '@angular/common/http';
 import { v4 as uuid } from 'uuid';
-//import { setInterval } from 'timers';
 
 @Component({
   selector: 'app-video',
@@ -20,8 +19,8 @@ export class VideoComponent implements OnInit, OnDestroy
   idSession: string;
   intervalId: any;
   isVideoPlay: boolean;
-  statusFromFunction: any;
-  playerStatus: number;
+  playerState: any;
+
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -50,40 +49,54 @@ export class VideoComponent implements OnInit, OnDestroy
         IdVideo: this.id
       });
       this.isVideoPlay = true;
-      this.intervalId = setInterval(this.sendPing, 30000);
+      this.intervalId = setInterval(() => this.sendPing(), 30000);
+    }
+    else if (event.data == 0) {
+      this.playerState = 'ENDED';
+    }
+    else if (event.data == 1) {
+      this.playerState = 'PLAY';
+    }
+    else if (event.data == 2) {
+      this.playerState = 'PAUSE';
+    }
+    else if (event.data == 3) {
+      this.playerState = 'BUFFERING';
+    }
+    else if (event.data == 5) {
+      this.playerState = 'VIDEO_CUED';
     }
   }
 
   sendPing() {
-    this.statusFromFunction = this.getPlayerStatus;
-    this.playerStatus = this.player.getPlayerState();
-    console.log("Update iz sendPing: " + this.playerStatus.toString());
     this.sessiondata.update({
       Id: this.idSession,
-      Status: this.statusFromFunction,
+      Status: this.playerState,
       UserAdress: this.ipAdress,
       IdVideo: this.id
     }, this.idSession);
   }
 
-  getPlayerStatus(): any {
-    this.playerStatus = this.player.getPlayerState();
-    if (this.playerStatus == 0) {
-      return 'ENDED';
-    }
-    else if (this.playerStatus == 1) {
-      return 'PLAY';
-    }
-    else if (this.playerStatus == 2) {
-      return 'PAUSE';
-    }
-    else if (this.playerStatus == 3) {
-      return 'BUFFERING';
-    }
-    else if (this.playerStatus == 5) {
-      return 'VIDEO_CUED';
-    }
-  }
+  //getPlayerStatus(): any {
+  //  this.playerState = 1;
+  //  console.log("State fiksni: " + this.playerState);
+  //  console.log("Instanca: ", this.player);
+  //  if (this.playerState == 0) {
+  //    return 'ENDED';
+  //  }
+  //  else if (this.playerState == 1) {
+  //    return 'PLAY';
+  //  }
+  //  else if (this.playerState == 2) {
+  //    return 'PAUSE';
+  //  }
+  //  else if (this.playerState == 3) {
+  //    return 'BUFFERING';
+  //  }
+  //  else if (this.playerState == 5) {
+  //    return 'VIDEO_CUED';
+  //  }
+  //}
 
   ngOnDestroy() {
     if (this.isVideoPlay == true) {
