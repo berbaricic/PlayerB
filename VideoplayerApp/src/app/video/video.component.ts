@@ -53,18 +53,48 @@ export class VideoComponent implements OnInit, OnDestroy
     }
     else if (event.data == 0) {
       this.playerState = 'ENDED';
+      this.sessiondata.update({
+        Id: this.idSession,
+        Status: this.playerState,
+        UserAdress: this.ipAdress,
+        IdVideo: this.id
+      }, this.idSession);
     }
     else if (event.data == 1) {
       this.playerState = 'PLAY';
+      this.sessiondata.update({
+        Id: this.idSession,
+        Status: this.playerState,
+        UserAdress: this.ipAdress,
+        IdVideo: this.id
+      }, this.idSession);
     }
     else if (event.data == 2) {
       this.playerState = 'PAUSE';
+      this.sessiondata.update({
+        Id: this.idSession,
+        Status: this.playerState,
+        UserAdress: this.ipAdress,
+        IdVideo: this.id
+      }, this.idSession);
     }
     else if (event.data == 3) {
       this.playerState = 'BUFFERING';
+      this.sessiondata.update({
+        Id: this.idSession,
+        Status: this.playerState,
+        UserAdress: this.ipAdress,
+        IdVideo: this.id
+      }, this.idSession);
     }
     else if (event.data == 5) {
       this.playerState = 'VIDEO_CUED';
+      this.sessiondata.update({
+        Id: this.idSession,
+        Status: this.playerState,
+        UserAdress: this.ipAdress,
+        IdVideo: this.id
+      }, this.idSession);
     }
   }
 
