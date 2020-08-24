@@ -28,7 +28,7 @@ export class SessiondataService {
     const client = new XMLHttpRequest();
     client.open("GET", this.baseUrl + "/" + id);
     client.setRequestHeader('Content-Type', 'application/json');
-    client.send(null);
+    client.send();
     console.log(client.responseText);
   }
 }

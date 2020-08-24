@@ -107,27 +107,6 @@ export class VideoComponent implements OnInit, OnDestroy
     }, this.idSession);
   }
 
-  //getPlayerStatus(): any {
-  //  this.playerState = 1;
-  //  console.log("State fiksni: " + this.playerState);
-  //  console.log("Instanca: ", this.player);
-  //  if (this.playerState == 0) {
-  //    return 'ENDED';
-  //  }
-  //  else if (this.playerState == 1) {
-  //    return 'PLAY';
-  //  }
-  //  else if (this.playerState == 2) {
-  //    return 'PAUSE';
-  //  }
-  //  else if (this.playerState == 3) {
-  //    return 'BUFFERING';
-  //  }
-  //  else if (this.playerState == 5) {
-  //    return 'VIDEO_CUED';
-  //  }
-  //}
-
   ngOnDestroy() {
     if (this.isVideoPlay == true) {
       console.log("Status:", "FINISHED");
