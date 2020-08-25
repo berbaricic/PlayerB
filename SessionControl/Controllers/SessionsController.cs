@@ -21,22 +21,22 @@ namespace SessionControl.Controllers
             _cache = cache;
         }
 
-        //GET: Sessions/Id
-        [HttpGet("{sessionId}")]
-        public Session GetSession(string sessionId)
-        {
-            //get key for cache
-            string key = RedisStore.GenerateKey(sessionId);
-            //get object from cache
-            var cachedSession = _cache.StringGet(key);
-            //convert JSON text to .NET object
-            var session = JsonConvert.DeserializeObject<Session>(cachedSession);
-            //get timestamp of request
-            session.RequestTime = RedisStore.GetTimestamp();
-            //update object in SortedSet
-            _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
-            return session;
-        }
+        //////GET: Sessions/Id
+        //[HttpGet("{sessionId}")]
+        //public Session GetSession(string sessionId)
+        //{
+        //    //get key for cache
+        //    string key = RedisStore.GenerateKey();
+        //    //get object from cache
+        //    var cachedSession = _cache.StringGet(key);
+        //    //convert JSON text to .NET object
+        //    var session = JsonConvert.DeserializeObject<Session>(cachedSession);
+        //    //get timestamp of request
+        //    session.RequestTime = RedisStore.GetTimestamp();
+        //    //update object in SortedSet
+        //    _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
+        //    return session;
+        //}
 
         // POST: Sessions
         [HttpPost]
@@ -45,23 +45,23 @@ namespace SessionControl.Controllers
             //get timestamp of request
             session.RequestTime = RedisStore.GetTimestamp();
             //get key for cache
-            string key = RedisStore.GenerateKey(session.Id);
+            string key = RedisStore.GenerateKey();
             //save object in Key-Value pairs and SortedSet
             _cache.StringSet(key, JsonConvert.SerializeObject(session));
             _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
         }
 
-        //PUT: Sessions/Id
-        [HttpPut("{sessionId}")]
-        public void PutSession(string sessionId, [FromBody] Session session)
-        {
-            //get timestamp of request
-            session.RequestTime = RedisStore.GetTimestamp();
-            //get key ofr cache
-            string key = RedisStore.GenerateKey(sessionId);
-            //update object in Key-Value pairs and SortedSet
-            _cache.StringSet(key, JsonConvert.SerializeObject(session));
-            _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
-        }
+        ////PUT: Sessions/Id
+        //[HttpPut("{sessionId}")]
+        //public void PutSession(string sessionId, [FromBody] Session session)
+        //{
+        //    //get timestamp of request
+        //    session.RequestTime = RedisStore.GetTimestamp();
+        //    //get key ofr cache
+        //    string key = RedisStore.GenerateKey();
+        //    //update object in Key-Value pairs and SortedSet
+        //    _cache.StringSet(key, JsonConvert.SerializeObject(session));
+        //    _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
+        //}
     }
 }

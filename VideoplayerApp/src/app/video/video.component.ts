@@ -28,6 +28,7 @@ export class VideoComponent implements OnInit, OnDestroy
     private http: HttpClient){
     this.http.get('https://jsonip.com').subscribe((ipOfNetwork) => this.ipAdress = ipOfNetwork['ip']);
   }
+
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.idSession = uuid();
@@ -41,10 +42,11 @@ export class VideoComponent implements OnInit, OnDestroy
 
   onStateChange(event){
     if (event.data == -1) {
-      console.log("Status:", "UNSTARTED");
+      console.log("Status:", "START");
+      this.playerState = 'START';
       this.sessiondata.create({
         Id: this.idSession,
-        Status: 'UNSTARTED',
+        Status: this.playerState,
         UserAdress: this.ipAdress,
         IdVideo: this.id
       });
@@ -53,69 +55,61 @@ export class VideoComponent implements OnInit, OnDestroy
     }
     else if (event.data == 0) {
       this.playerState = 'ENDED';
-      this.sessiondata.update({
+      this.sessiondata.create({
         Id: this.idSession,
         Status: this.playerState,
         UserAdress: this.ipAdress,
         IdVideo: this.id
-      }, this.idSession);
+      });
     }
     else if (event.data == 1) {
       this.playerState = 'PLAY';
-      this.sessiondata.update({
+      this.sessiondata.create({
         Id: this.idSession,
         Status: this.playerState,
         UserAdress: this.ipAdress,
         IdVideo: this.id
-      }, this.idSession);
+      });
     }
     else if (event.data == 2) {
       this.playerState = 'PAUSE';
-      this.sessiondata.update({
+      this.sessiondata.create({
         Id: this.idSession,
         Status: this.playerState,
         UserAdress: this.ipAdress,
         IdVideo: this.id
-      }, this.idSession);
-    }
-    else if (event.data == 3) {
-      this.playerState = 'BUFFERING';
-      this.sessiondata.update({
-        Id: this.idSession,
-        Status: this.playerState,
-        UserAdress: this.ipAdress,
-        IdVideo: this.id
-      }, this.idSession);
+      });
     }
     else if (event.data == 5) {
       this.playerState = 'VIDEO_CUED';
-      this.sessiondata.update({
+      this.sessiondata.create({
         Id: this.idSession,
         Status: this.playerState,
         UserAdress: this.ipAdress,
         IdVideo: this.id
-      }, this.idSession);
+      });
     }
   }
 
   sendPing() {
-    this.sessiondata.update({
+    this.playerState = 'PING';
+    this.sessiondata.create({
       Id: this.idSession,
       Status: this.playerState,
       UserAdress: this.ipAdress,
       IdVideo: this.id
-    }, this.idSession);
+    });
   }
 
   ngOnDestroy() {
     if (this.isVideoPlay == true) {
-      console.log("Status:", "FINISHED");
-      this.sessiondata.update({
+      this.playerState = 'CLOSED';
+      this.sessiondata.create({
         Id: this.idSession,
-        Status: 'FINISHED',
+        Status: this.playerState,
         UserAdress: this.ipAdress,
         IdVideo: this.id
-      }, this.idSession);
+      });
       clearInterval(this.intervalId);
     }
   }

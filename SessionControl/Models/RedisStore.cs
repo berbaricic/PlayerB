@@ -6,11 +6,10 @@ namespace SessionControl.Models
 {
     public static class RedisStore
     {            
-        public static string GenerateKey(string sessionId)
+        public static string GenerateKey()
         {
-            var test = Guid.NewGuid();
-            var test1 = new Random().Next(100);
-            return $"session:{sessionId}";
+            Guid guid = Guid.NewGuid();
+            return $"session:{guid}";
         }
         public static int GetTimestamp()
         {

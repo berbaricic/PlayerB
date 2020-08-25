@@ -65,25 +65,25 @@ namespace BackgroundWorker
                     _cache.SortedSetRemove("SortedSetOfRequestsTime", expired);
                 }
 
-                //command - ZRANGEBYSCORE key min(timestampLimit) max(+inf)
-                //Finished values (status = finished)
-                RedisValue[] finishedValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", start: timestampLimit + 1);
+                ////command - ZRANGEBYSCORE key min(timestampLimit) max(+inf)
+                ////Finished values (status = finished)
+                //RedisValue[] finishedValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", start: timestampLimit + 1);
 
-                foreach (var finished in finishedValues)
-                {
-                    //stringGet(item) --> value
-                    var cachedSession = _cache.StringGet(finished.ToString());
-                    var session = JsonConvert.DeserializeObject<Session>(cachedSession);
-                    if (session.Status == "FINISHED")
-                    {
-                        //value save to sql db
-                        this.sqlDatabase.SaveToDatabase(session);
-                        //After saving to db, remove key from cache
-                        _cache.KeyDelete(finished.ToString());
-                        _cache.SortedSetRemove("SortedSetOfRequestsTime", finished);
-                    }
-                    
-                }
+                //foreach (var finished in finishedValues)
+                //{
+                //    //stringGet(item) --> value
+                //    var cachedSession = _cache.StringGet(finished.ToString());
+                //    var session = JsonConvert.DeserializeObject<Session>(cachedSession);
+                //    if (session.Status == "CLOSED")
+                //    {
+                //        //value save to sql db
+                //        this.sqlDatabase.SaveToDatabase(session);
+                //        //After saving to db, remove key from cache
+                //        _cache.KeyDelete(finished.ToString());
+                //        _cache.SortedSetRemove("SortedSetOfRequestsTime", finished);
+                //    }
+
+                //}
                 //Wait 60 seconds and then repeat
                 await Task.Delay(60*1000, stoppingToken);               
             }
