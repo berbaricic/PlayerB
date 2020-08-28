@@ -1,17 +1,20 @@
-USE SessionDatabase;
+USE [SessionDatabase]
 GO
 
-CREATE PROCEDURE SaveToDatabase_StoredProcedure
-	-- Add the parameters for the stored procedure here
+CREATE PROCEDURE [dbo].[SaveToDatabase_StoredProcedure]
 	@SessionId nvarchar(50), 
 	@Status nvarchar(max),
 	@UserAdress nvarchar(max),
 	@IdVideo nvarchar(max),
 	@RequestTime int
 AS
-BEGIN
-	SET NOCOUNT ON;
-
+BEGIN TRY
+	BEGIN TRANSACTION
 	INSERT INTO Session VALUES (@SessionId, @Status, @UserAdress, @IdVideo, @RequestTime);
-END
-GO
+	IF NOT EXISTS (SELECT IdVideo FROM VideoPlayers WHERE IdVideo = @IdVideo)
+	INSERT INTO VideoPlayers VALUES (@IdVideo);
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
