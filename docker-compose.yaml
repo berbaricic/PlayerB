@@ -2,20 +2,26 @@ version: '3.8'
 
 services:
   angular:
-    image: "doc2210/internship_2210:vlatest"
+    build: 
+      context: .
+      dockerfile: ./VideoplayerApp/Dockerfile
     container_name: angular
     ports:
       - "4200:4200"
 
   database:
-    image: "doc2210/mssql:sqlatest"
+    build: 
+      context: .
+      dockerfile: ./MSSQL/Dockerfile
     restart: always
     container_name: database
     ports:
       - "1433:1433"     
  
   webapi:
-    image: "doc2210/web_api:slatest"
+    build: 
+      context: .
+      dockerfile: ./SessionControl/Dockerfile 
     container_name: webapi
     expose: 
       - "443"
@@ -24,7 +30,9 @@ services:
       - "5001:5001"
 
   worker:
-    image: "doc2210/background_worker:blatest"
+    build: 
+      context: .
+      dockerfile: ./BackgroundWorker/Dockerfile
     restart: always
     container_name: worker
     depends_on:

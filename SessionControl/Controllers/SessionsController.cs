@@ -47,8 +47,8 @@ namespace SessionControl.Controllers
             //get key for cache
             string key = RedisStore.GenerateKey();
             //save object in Key-Value pairs and SortedSet
-            _cache.StringSet(key, JsonConvert.SerializeObject(session));
-            _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
+            _cache.StringSetAsync(key, JsonConvert.SerializeObject(session));
+            _cache.SortedSetAddAsync("SortedSetOfRequestsTime", key, session.RequestTime);
         }
 
         ////PUT: Sessions/Id

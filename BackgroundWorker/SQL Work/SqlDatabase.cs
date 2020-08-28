@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BackgroundWorker
 {
@@ -21,13 +23,20 @@ namespace BackgroundWorker
             this.logger = logger;
         }
 
-        public void SaveToDatabase(Session session)
+        public async Task<Session> SaveToDatabase(Session session)
         {
-            string sqlSessionInsert = "INSERT INTO Session VALUES ('" + session.Id + "','" + session.Status + "','" +
-                            session.UserAdress + "','" + session.IdVideo + "'," + session.RequestTime + ");";
+            string sQuery = "SaveToDatabase_StoredProcedure";
+            DynamicParameters param = new DynamicParameters();
+            param.Add("@SessionId", session.Id);
+            param.Add("@Status", session.Status);
+            param.Add("@UserAdress", session.UserAdress);
+            param.Add("@IdVideo", session.IdVideo);
+            param.Add("@RequestTime", session.RequestTime);
+
             using (IDbConnection db = this.connectionSql.OpenConnection())
             {
-                var rows = db.Execute(sqlSessionInsert);
+                var result = await db.QueryAsync<Session>(sQuery, param, commandType: CommandType.StoredProcedure);
+                return result.FirstOrDefault();
             }
         }
     }

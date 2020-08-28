@@ -3,10 +3,15 @@ GO
 USE SessionDatabase;
 GO
 CREATE TABLE [Session](
-	[Id] [varchar](max) NOT NULL,
-	[Status] [varchar](max) NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[SessionId] [varchar](50) NOT NULL,
+	[Status] [varchar](max) NOT NULL,
 	[UserAdress] [varchar](max) NULL,
-	[IdVideo] [varchar](max) NULL,
-	[RequestTime] [int] NULL
-)
+	[IdVideo] [varchar](max) NOT NULL,
+	[RequestTime] [int] NULL,
+ CONSTRAINT [PK_Session] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
