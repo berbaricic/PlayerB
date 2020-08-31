@@ -12,7 +12,9 @@ services:
     restart: always
     container_name: database
     ports:
-      - "1433:1433"     
+      - "1433:1433" 
+    volumes: 
+      - ./MSSQL/sqldata:/var/opt/mssql/data     
  
   webapi:
     image: "doc2210/web_api:slatest"
