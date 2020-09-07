@@ -25,7 +25,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "VideoplayerApp", "Videoplay
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "61515"
+		SlnRelativePath = "VideoplayerApp\"
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{A5A90F1A-33C8-4DAB-933E-AFBAC842FC26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +48,10 @@ Global
 		{151423E3-9B3A-404C-81BD-891FDAFF78F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{151423E3-9B3A-404C-81BD-891FDAFF78F8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{151423E3-9B3A-404C-81BD-891FDAFF78F8}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A5A90F1A-33C8-4DAB-933E-AFBAC842FC26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5A90F1A-33C8-4DAB-933E-AFBAC842FC26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5A90F1A-33C8-4DAB-933E-AFBAC842FC26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5A90F1A-33C8-4DAB-933E-AFBAC842FC26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

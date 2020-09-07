@@ -136,3 +136,5 @@ C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcore
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\SessionControl.pdb
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\obj\Debug\netcoreapp3.1\BackgroundWorker.csproj.CoreCompileInputs.cache
 C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\SessionControl.exe
+C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\Castle.Core.dll
+C:\Users\Berislav\source\repos\SessionControl\BackgroundWorker\bin\Debug\netcoreapp3.1\Moq.dll

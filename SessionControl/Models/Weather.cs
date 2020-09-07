@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SessionControl.Models
 {
-    public class ClassForTesting
+    public class Weather
     {
         public void MethodTest(string location, string apikey)
         {
@@ -19,6 +20,7 @@ namespace SessionControl.Models
 
 				var currentWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" +
 					location + "&apikey=" + apikey;
+
 				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(currentWeatherUrl);
 				request.AutomaticDecompression = DecompressionMethods.GZip;
 

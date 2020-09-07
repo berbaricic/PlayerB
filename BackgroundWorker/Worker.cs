@@ -59,7 +59,7 @@ namespace BackgroundWorker
                     var cachedSession = _cache.StringGet(expired.ToString());
                     var session = JsonConvert.DeserializeObject<Session>(cachedSession);
                     //value save to sql db
-                    this.sqlDatabase.SaveToDatabase(session);
+                    await this.sqlDatabase.SaveToDatabase(session);
                     //After saving to db, remove key from cache
                     _cache.KeyDelete(expired.ToString());
                     _cache.SortedSetRemove("SortedSetOfRequestsTime", expired);
