@@ -20,7 +20,7 @@ Rješenje projekta dijelimo na 5 komponenata: klijentska aplikacija, web servis,
   * Cache: u cache spremamo zapise dobivene na temelju aktiviranih događaja. Zapisi se pohranju u strukturu "Key-Value pairs" gdje se key generira te je jedinstven, a u value spremamo podatke o sesiji.
   Također, u drugu strukturu "SortedSet" spremamo ključeve (member) i vrijeme zadnjeg zahtjeva na taj ključ(score). SortedSet nam omogućava provjeru isteklih sesija koje onda možemo 
   dohvatiti iz "Key-Value pairs" te spremiti u bazu.
-  * Baza: u bazu spremamo periodički zapise iz cache-a (sesije koje su istekle). 
+  * Baza: u bazu spremamo periodički zapise iz cache-a (sesije koje su istekle). Baza sadrži dvije tablice: Session i Videoplayer. Tablica Session sadrži atribute Id, SessionId, Status, UserAdress, IdVideo i RequestTime, dok tablica Videoplayer sadrži atribute Id i IdVideo. Pri pokretanju kontejnera, na Ms SQL Serveru, kreira se baza SessionDatabase s navedenim tablicama te obavlja se mehanizam perzistencije podataka, i to prebacivanje podataka s vanjskog diska na unutarnji folder kontejnera. Tako smo dobili trajne podatke, i ako se kontejner restarta.
   * BackgroundWorker: omogućava periodičku obradu podataka te prebacivanje isteklih sesija u bazu.
   
  <p align="center">
