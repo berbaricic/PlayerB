@@ -17,6 +17,7 @@ namespace XUnitTest
         {
             weather = new Weather();
         }
+
         [Fact]
        public void MethodTest_ArgumentChecking()
         {
@@ -33,7 +34,12 @@ namespace XUnitTest
         public void MethodTest_RequestTesting()
         {
             // arrange
-            var expected = "Lijepo suncano";
+            string city = "London";
+            string apikey = "014164a1cbf071eb1be572e3564ef8f0";
+            weather.MethodTest(city, apikey);
+
+            var expected = "lijepo suncano";
+            string upis = "U gradu " + city + " vrijeme je " + expected;
             var expectedBytes = Encoding.UTF8.GetBytes(expected);
 
             var responseStream = new MemoryStream();
@@ -64,8 +70,10 @@ namespace XUnitTest
                     actual = streamReader.ReadToEnd();
                 }
             }
+            string ispis = "U gradu " + city + " vrijeme je " + actual;
+
             // assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(upis, ispis);
         }
     }
 }

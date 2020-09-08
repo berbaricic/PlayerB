@@ -16,6 +16,7 @@ namespace SessionControl.Models
 			try
 			{
 				string result;
+				string ispis;
 				bool validLocation = CheckLocation(location);
 
 				var currentWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" +
@@ -30,7 +31,7 @@ namespace SessionControl.Models
 				{
 					result = reader.ReadToEnd();
 				}
-
+				ispis = "U gradu " + location + " vrijeme je " + result + ".";
 			}
 			catch (ArgumentNullException)
 			{
