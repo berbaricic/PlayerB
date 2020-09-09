@@ -12,20 +12,20 @@ namespace SessionControl.Models
     public class Weather
     {
 		public string Result;
+		private IHttpWebRequestFactory factory;
 		private HttpWebRequest request;
 		private HttpWebResponse response;
-		private Stream stream;
 
 		public Weather()
 		{
 
 		}
 
-		public Weather(HttpWebRequest request, HttpWebResponse response, Stream stream)
+		public Weather(IHttpWebRequestFactory factory, HttpWebRequest request, HttpWebResponse response)
 		{
+			this.factory = factory;
 			this.request = request;
 			this.response = response;
-			this.stream = stream;
 		}
 
         public void MethodTest(string location, string apikey)
@@ -44,24 +44,22 @@ namespace SessionControl.Models
 			var currentWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" +
 				location + "&apikey=" + apikey;
 
+			this.request = this.factory.Create(currentWeatherUrl);
+
 			if (this.request == null)
 			{
 				throw new NotSupportedException();
 			}
 			else
 			{
-				request.AutomaticDecompression = DecompressionMethods.GZip;
-				using (this.response)
+				this.request.AutomaticDecompression = DecompressionMethods.GZip;
+				using (this.response = (HttpWebResponse)this.request.GetResponse())
 				{
-					if (response == null)
+					if (this.response == null)
 					{
 						throw new WebException();
-					}
-					if (stream == null)
-					{
-						throw new ProtocolViolationException();
-					}
-					using (StreamReader streamReader = new StreamReader(stream))
+					}				
+					using (StreamReader streamReader = new StreamReader(this.response.GetResponseStream()))
 					{
 						Result = streamReader.ReadToEnd();
 					}
