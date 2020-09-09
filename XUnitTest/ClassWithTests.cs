@@ -1,79 +1,116 @@
 using Microsoft.AspNetCore.Authorization;
 using Moq;
+using SessionControl.Exception;
 using SessionControl.Models;
 using System;
 using System.IO;
 using System.Net;
+using System.Runtime.CompilerServices;
+using System.Security.Permissions;
 using System.Text;
 using Xunit;
 
 namespace XUnitTest
 {
-    public class ClassWithTests
+    public class MethodTest
     {
-        private readonly Weather weather;
+        Weather weather;
 
-        public ClassWithTests()
+        [Fact]
+       public void Ensure_ArgumentChecking_ExceptionThrown_arg0()
         {
             weather = new Weather();
+            Assert.Throws<ArgumentNullException>(() => weather.MethodTest("Zagreb", null));
         }
 
         [Fact]
-       public void MethodTest_ArgumentChecking()
+        public void Ensure_ArgumentChecking_ExceptionThrown_arg1()
         {
-            weather.MethodTest("Zagreb", null);
+            weather = new Weather();
+            Assert.Throws<ArgumentNullException>(() => weather.MethodTest(null, "014164a1cbf071eb1be572e3564ef8f0"));
         }
 
         [Fact]
-        public void MethodTest_LocationChecking()
+        public void Ensure_LocationChecking_ExceptionThrown()
         {
-            weather.MethodTest("Lond4on", "ebfthg3z3535");
+            weather = new Weather();
+            Assert.Throws<NotAllowedValueException>(() => weather.MethodTest("Zagreb01", "014164a1" ));
         }
 
         [Fact]
-        public void MethodTest_RequestTesting()
+        public void Ensure_Request_ExceptionThrown()
         {
             // arrange
-            string city = "London";
-            string apikey = "014164a1cbf071eb1be572e3564ef8f0";
-            weather.MethodTest(city, apikey);
-
-            var expected = "lijepo suncano";
-            string upis = "U gradu " + city + " vrijeme je " + expected;
-            var expectedBytes = Encoding.UTF8.GetBytes(expected);
-
-            var responseStream = new MemoryStream();
-            responseStream.Write(expectedBytes, 0, expectedBytes.Length);
-            responseStream.Seek(0, SeekOrigin.Begin);
-
-            var response = new Mock<HttpWebResponse>();
-            response.Setup(c => c.GetResponseStream()).Returns(responseStream);
-
-            var request = new Mock<HttpWebRequest>();
-            request.Setup(c => c.GetResponse()).Returns(response.Object);
-
             var factory = new Mock<IHttpWebRequestFactory>();
-            factory.Setup(c => c.Create(It.IsAny<string>()))
-                .Returns(request.Object);
+            var httpRequest = new Mock<HttpWebRequest>();
+            var httpResponse = new Mock<HttpWebResponse>();
+            var responseStream = new MemoryStream();
 
-            // act
-            var actualRequest = factory.Object.Create("http://api.openweathermap.org/data/2.5/weather?q=" +
-                    "London&apikey=014164a1cbf071eb1be572e3564ef8f0");
-            actualRequest.Method = WebRequestMethods.Http.Get;
+            factory.Setup(c => c.Create(It.IsAny<string>())).Returns(httpRequest.Object);
 
-            string actual;
+            //act & assert
+            var weather = new Weather(null, httpResponse.Object, responseStream);
+            Assert.Throws<NotSupportedException>(() => weather.MethodTest("Zagreb", "014164a1"));
 
-            using (var httpWebResponse = (HttpWebResponse)actualRequest.GetResponse())
-            {
-                using (var streamReader = new StreamReader(httpWebResponse.GetResponseStream()))
-                {
-                    actual = streamReader.ReadToEnd();
-                }
-            }
-            string ispis = "U gradu " + city + " vrijeme je " + actual;
-
-            // assert
-            Assert.Equal(upis, ispis);
         }
+
+        [Fact]
+        public void Ensure_Response_ExceptionThrown()
+        {
+            // arrange
+            var factory = new Mock<IHttpWebRequestFactory>();
+            var httpRequest = new Mock<HttpWebRequest>();
+            var httpResponse = new Mock<HttpWebResponse>();
+            var responseStream = new MemoryStream();
+
+            factory.Setup(c => c.Create(It.IsAny<string>())).Returns(httpRequest.Object);
+            httpRequest.Setup(c => c.GetResponse()).Returns(httpResponse.Object);
+
+            //act & assert
+            var weather = new Weather(httpRequest.Object, null, responseStream);
+            Assert.Throws<WebException>(() => weather.MethodTest("Zagreb", "014164a1"));
+        }
+
+        [Fact]
+        public void Ensure_ResponseStream_ExceptionThrown()
+        {
+            // arrange
+            var factory = new Mock<IHttpWebRequestFactory>();
+            var httpRequest = new Mock<HttpWebRequest>();
+            var httpResponse = new Mock<HttpWebResponse>();
+            var responseStream = new MemoryStream();
+
+            factory.Setup(c => c.Create(It.IsAny<string>())).Returns(httpRequest.Object);
+            httpRequest.Setup(c => c.GetResponse()).Returns(httpResponse.Object);
+            httpResponse.Setup(c => c.GetResponseStream()).Returns(responseStream);
+
+            //act & assert
+            var weather = new Weather(httpRequest.Object, httpResponse.Object, null);
+            Assert.Throws<ProtocolViolationException>(() => weather.MethodTest("Zagreb", "014164a1"));
+        }
+
+        [Fact]
+        public void Ensure_ResultIsNotNull()
+        {
+            // arrange
+            var factory = new Mock<IHttpWebRequestFactory>();
+            var httpRequest = new Mock<HttpWebRequest>();
+            var httpResponse = new Mock<HttpWebResponse>();
+            var responseStream = new MemoryStream();
+
+            factory.Setup(c => c.Create(It.IsAny<string>())).Returns(httpRequest.Object);
+            httpRequest.Setup(c => c.GetResponse()).Returns(httpResponse.Object);
+            httpResponse.Setup(c => c.GetResponseStream()).Returns(responseStream);
+
+            //act
+            var weather = new Weather(httpRequest.Object, httpResponse.Object, responseStream);
+            weather.MethodTest("Zagreb", "014164a1");
+
+            //assert
+            Assert.NotNull(weather.Result);          
+        }
+
+     
+
     }
 }

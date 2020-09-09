@@ -11,48 +11,72 @@ namespace SessionControl.Models
 {
     public class Weather
     {
+		public string Result;
+		private HttpWebRequest request;
+		private HttpWebResponse response;
+		private Stream stream;
+
+		public Weather()
+		{
+
+		}
+
+		public Weather(HttpWebRequest request, HttpWebResponse response, Stream stream)
+		{
+			this.request = request;
+			this.response = response;
+			this.stream = stream;
+		}
+
         public void MethodTest(string location, string apikey)
         {
-			try
+			if (string.IsNullOrEmpty(location))
 			{
-				string result;
-				string ispis;
-				bool validLocation = CheckLocation(location);
-
-				var currentWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" +
-					location + "&apikey=" + apikey;
-
-				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(currentWeatherUrl);
-				request.AutomaticDecompression = DecompressionMethods.GZip;
-
-				using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-				using (Stream stream = response.GetResponseStream())
-				using (StreamReader reader = new StreamReader(stream))
-				{
-					result = reader.ReadToEnd();
-				}
-				ispis = "U gradu " + location + " vrijeme je " + result + ".";
+				throw new ArgumentNullException();
 			}
-			catch (ArgumentNullException)
+			if (string.IsNullOrEmpty(apikey))
 			{
-			}
-			catch (NotAllowedValueException)
-			{
-			}
-			catch (WebException)
-			{
+				throw new ArgumentNullException();
 			}
 			
-        }
+			CheckLocation(location);
 
-		public bool CheckLocation(string loc)
+			var currentWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" +
+				location + "&apikey=" + apikey;
+
+			if (this.request == null)
+			{
+				throw new NotSupportedException();
+			}
+			else
+			{
+				request.AutomaticDecompression = DecompressionMethods.GZip;
+				using (this.response)
+				{
+					if (response == null)
+					{
+						throw new WebException();
+					}
+					if (stream == null)
+					{
+						throw new ProtocolViolationException();
+					}
+					using (StreamReader streamReader = new StreamReader(stream))
+					{
+						Result = streamReader.ReadToEnd();
+					}
+				}
+			}
+
+		}
+
+		public void CheckLocation(string loc)
 		{
 			bool containsDigit = loc.Any(char.IsDigit);
 			if (containsDigit)
 			{
 				throw new NotAllowedValueException("Invalid location. Location cannot contain numbers");
 			}
-			return true;
 		}
     }
 }
