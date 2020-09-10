@@ -13,19 +13,15 @@ namespace SessionControl.Models
     {
 		public string Result;
 		private IHttpWebRequestFactory factory;
-		private HttpWebRequest request;
-		private HttpWebResponse response;
 
 		public Weather()
 		{
 
 		}
 
-		public Weather(IHttpWebRequestFactory factory, HttpWebRequest request, HttpWebResponse response)
+		public Weather(IHttpWebRequestFactory factory)
 		{
 			this.factory = factory;
-			this.request = request;
-			this.response = response;
 		}
 
         public void MethodTest(string location, string apikey)
@@ -44,22 +40,22 @@ namespace SessionControl.Models
 			var currentWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" +
 				location + "&apikey=" + apikey;
 
-			this.request = this.factory.Create(currentWeatherUrl);
+			 var request = this.factory.Create(currentWeatherUrl);
 
-			if (this.request == null)
+			if (request == null)
 			{
 				throw new NotSupportedException();
 			}
 			else
 			{
-				this.request.AutomaticDecompression = DecompressionMethods.GZip;
-				using (this.response = (HttpWebResponse)this.request.GetResponse())
+				request.AutomaticDecompression = DecompressionMethods.GZip;
+				using (var response = (HttpWebResponse)request.GetResponse())
 				{
-					if (this.response == null)
+					if (response == null)
 					{
 						throw new WebException();
 					}				
-					using (StreamReader streamReader = new StreamReader(this.response.GetResponseStream()))
+					using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
 					{
 						Result = streamReader.ReadToEnd();
 					}
