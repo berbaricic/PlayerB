@@ -57,14 +57,14 @@ namespace XUnitTest
             Assert.NotNull(weather.Result);      
         }
         [Fact]
-        public void Ensure_Request_ExceptionThrown()
+        public void Ensure_Exception_IfRequestIsNull()
         {
             // arrange
             var factory = new Mock<IHttpWebRequestFactory>();
             var httpRequest = new Mock<HttpWebRequest>();
             var httpResponse = new Mock<HttpWebResponse>();
 
-            //factory.Setup(c => c.Create(It.IsAny<string>())).Returns(httpRequest.Object);
+            factory.Setup(c => c.Create(It.IsAny<string>()));
             httpRequest.Setup(c => c.GetResponse()).Returns(httpResponse.Object);
             httpResponse.Setup(c => c.GetResponseStream()).Returns(new MemoryStream());
 
@@ -74,7 +74,7 @@ namespace XUnitTest
         }
 
         [Fact]
-        public void Ensure_Response_ExceptionThrown()
+        public void Ensure_Exception_IfResponseIsNUll()
         {
             // arrange
             var factory = new Mock<IHttpWebRequestFactory>();
@@ -82,7 +82,7 @@ namespace XUnitTest
             var httpResponse = new Mock<HttpWebResponse>();
 
             factory.Setup(c => c.Create(It.IsAny<string>())).Returns(httpRequest.Object);
-            //httpRequest.Setup(c => c.GetResponse()).Returns(httpResponse.Object);
+            httpRequest.Setup(c => c.GetResponse());
             httpResponse.Setup(c => c.GetResponseStream()).Returns(new MemoryStream());
 
             //act & assert
