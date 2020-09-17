@@ -17,7 +17,8 @@ namespace BackgroundWorker
         private readonly ISqlDatabase sqlDatabase;
         private IDatabase _cache;
 
-        public Worker(ILogger<Worker> logger, ISqlDatabase sqlDatabase, IConfiguration configuration)
+        public Worker(ILogger<Worker> logger, ISqlDatabase sqlDatabase,
+                      IConfiguration configuration)
         {
             this.logger = logger;
             this.sqlDatabase = sqlDatabase;
@@ -51,7 +52,7 @@ namespace BackgroundWorker
 
                 //command - ZRANGEBYSCORE key min(-inf) max(timestampLimit)
                 //Expired values
-                RedisValue[] expireValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", stop: timestampLimit);              
+                RedisValue[] expireValues = _cache.SortedSetRangeByScore("SortedSetOfRequestsTime", stop: timestampLimit);
 
                 foreach (var expired in expireValues)
                 {

@@ -22,6 +22,7 @@
     "@angular/platform-server": "8.2.12",
     "@angular/router": "8.2.12",
     "@angular/youtube-player": "8.2.3",
+    "@aspnet/signalr": "^1.1.4",
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
     "angular-uuid": "0.0.4",
     "aspnet-prerendering": "^3.0.1",

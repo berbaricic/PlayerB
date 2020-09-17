@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SessionControl.Models;
 using StackExchange.Redis;
+using SessionControl.SignalR;
 
 namespace SessionControl
 {
@@ -26,15 +27,19 @@ namespace SessionControl
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
             services.AddScoped(s => redis.GetDatabase());
 
+            services.AddTransient<IDataManager, DataManager>();
+
             services.AddControllersWithViews();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
+                    .WithOrigins("http://localhost:4200")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowAnyOrigin());
             });
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,9 +66,8 @@ namespace SessionControl
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}").RequireCors("CorsPolicy");
+                endpoints.MapControllers();
+                endpoints.MapHub<SessionHub>("/signalr");
             });
         }
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ElementRef, Input } from '@angular/core';
 import { VideoDetail } from 'src/app/search/details.model';
 import { YoutubeSearchService } from 'src/app/search/youtube-search.service';
 import { fromEvent } from 'rxjs';
@@ -10,6 +10,7 @@ import { map, filter, debounceTime, tap, switchAll } from 'rxjs/operators';
   styleUrls: ['./search-box.component.css']
 })
 export class SearchBoxComponent implements OnInit {
+  @Input() 
   @Output() loading = new EventEmitter<boolean>();
   @Output() results = new EventEmitter<VideoDetail[]>();
 
