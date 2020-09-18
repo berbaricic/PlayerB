@@ -19,7 +19,7 @@ export class HomeComponent {
 
   updateResults(results: VideoDetail[]): void {
     this.resultState.next(results);
-    //this.results = results;
+    this.results = results;
     if (this.results.length === 0) {
       this.message = 'Not found...';
     } else {
