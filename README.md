@@ -83,3 +83,26 @@ Za izradu projekta korištene su sljedeće tehnologije:
   * Postman - Web API testiranje
   * JMeter - load testiranje
   
+## Dodatni zadaci: SignalR, XUnit 
+
+### SignalR 
+
+SignalR je open-source library koji pojednostavljuje dodavanje real-time funkcionalnosti aplikacijama uz pomoć HTTP-a (protokol za komunikaciju između klijenta i servera). Real-time znači da server strana push-a podatke istog trena na sve klijente koji su povezani. SignalR koristi "hubs" - high level pipeline koji omogućuje klijentu i serveru međusobno pozivanje metoda.
+
+Za primjenu SignalR, riješen je sljedeći zadatak: SignalR servis push-a periodično broj zapisa iz tablice Session na korisničku aplikaciju te se taj broj prikazuje u headeru.
+
+Rješavanje zadatka je započeto s preuzimanjem SignalR library-a. Budući da je SignalR server library već uključen u ASP.NET Core, samo je preuzet SignalR client library za Angular. 
+Nakon toga kreirana je klasa SessionHub koja se izvodi iz klase SignalR Hub. SessionHub klasa je prazna jer zasad ostvarujemo samo jednosmjernu komunikaciju (server prema klijentu), stoga nijedna metoda nije tu kreirana.
+Potom, u ConfigureService metodi dodan je SignalR u IService kolekciju te u metodi Configure usmjeravamo SignalR zahtjeve na SessionHub uz pomoć putanje /signalr.
+Kako bi upravljali s HTTP zahtjevima, kreiramo novi kontroler koji ima putanju api/signalr. U kontroleru kreiramo instancu interface-a IHubContext (dependency injection) te s objektom instance može pristupiti i pozvati hub-ove metode.
+Kreirana je metoda Get u kojoj je pozvana također instanca klase TimerManager gdje je sređen timer. Svi klijenti se mogu subscribe-ati na ime "ShowNumber" kako bi dobivali podatak o broju zapisa u bazi.
+Na Angular aplikaciji, nakon preuzimanje SignalR library-a, kreiran je servis u kojem startamo konekciju na naš SignalR, dodajemo listenera na metodu "ShowNumber" i šaljemo HTTP zahtjev kako bi dobili odgovor s servera. Podatak 
+o broju zapisa u bazi prikazujemo u Navigation komponenti.
+
+### XUnit
+
+Xunit je besplatni open-source alat za testiranje dijelova u .NET Core-u. Unit testovi su provedeni na testnoj klasi koja je kreirana samo za odrađivanje ovog zadatka. Ime klase je Weather te sadrži metodu za testiranje. Metoda "MethodTest" provjerava parametre metode da li su null te provjerava da li lokacija sadrži brojeve. Nadalje, metoda poziva 3rd party servis (Weather API), čeka odgovor te ga evaluira. Rad s servisom treba biti riješen korištenjem Moy frameworka, to znači da ćemo imitirati ponašanje objekata HttpWebRequest i HttpWebRequest te time nećemo stvarati prave objekte (nećemo pozivati servis, čekati odgovor, evaluirati pravi odgovor). Ovo izolira kôd koji testiramo, osiguravajući da radi sam za sebe i da niti jedan drugi kôd neće srušiti testove.
+
+Prvo su provedena tri testa koja su vezana uz provjeru argumenata, a zatim su provedena tri testa koji obuhvaćaju rad s mockanim objektima. U tim testovima prvo su kreirani mockani objekti te zatim je testirano ponašanje dijela metode s servisom. 
+
+
