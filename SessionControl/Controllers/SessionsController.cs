@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Moq;
 using Newtonsoft.Json;
 using SessionControl.Models;
@@ -17,13 +18,13 @@ namespace SessionControl.Controllers
     public class SessionsController : ControllerBase
     {
         private readonly IDatabase _cache;
-        public event EventHandler<CacheChangedEventArgs> CacheChanged;
+        private readonly IHubContext<SessionHub> sessionHub;
 
-        public SessionsController(IDatabase cache)
+        public SessionsController(IDatabase cache, IHubContext<SessionHub> sessionHub)
         {
             _cache = cache;
+            this.sessionHub = sessionHub;
         }
-
 
         // POST: Sessions
         [HttpPost]
@@ -37,16 +38,15 @@ namespace SessionControl.Controllers
             _cache.StringSetAsync(key, JsonConvert.SerializeObject(session));
             _cache.SortedSetAddAsync("SortedSetOfRequestsTime", key, session.RequestTime);
 
-            //get lenght of sortedset
-            CacheChangedEventArgs args = new CacheChangedEventArgs();
-            args.NumberOfRows = _cache.SortedSetLength("SortedSetOfRequestsTime");
-            OnCacheChanged(args);
+            //get lenght of sortedset   
+            var rowNumber = _cache.SortedSetLength("SortedSetOfRequestsTime");
+            sessionHub.Clients.All.SendAsync("ShowNumber", rowNumber);           
         }
 
-        protected virtual void OnCacheChanged(CacheChangedEventArgs e)
-        {
-            CacheChanged?.Invoke(this, e);
-        }
+        //protected virtual void OnCacheChanged(CacheChangedEventArgs e)
+        //{
+        //    sessionHub.OnCacheChange?.Invoke(this, e);
+        //}
 
     }
 }

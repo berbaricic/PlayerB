@@ -15,13 +15,13 @@ export class NavMenuComponent implements OnInit {
   ngOnInit() {
     this.signalRService.startConnection();
     this.signalRService.addNumberOfRowsToHeader();
-    this.startHttp();
+    //this.startHttp();
   }
 
-  private startHttp = () => {
-    this.http.get('http://localhost:5000/api/signalr')
-      .subscribe(res => { console.log(res) })
-  }
+  //private startHttp = () => {
+  //  this.http.get('http://localhost:5000/api/signalr')
+  //    .subscribe(res => { console.log(res) })
+  //}
 
   collapse() {
     this.isExpanded = false;
