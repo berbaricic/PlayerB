@@ -24,7 +24,7 @@ export class SignalrService {
   }
 
   public addNumberOfRowsToHeader = () => {
-    this.hubConnection.on('ShowNumber', (rowsNumber) => {
+    this.hubConnection.on('ReceiveMessage', (rowsNumber) => {
       this.rowsNumber = rowsNumber;
       console.log("from signalr servisa: " + this.rowsNumber);
     });

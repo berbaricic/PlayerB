@@ -27,8 +27,6 @@ namespace SessionControl
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
             services.AddScoped(s => redis.GetDatabase());
 
-            services.AddTransient<IDataManager, DataManager>();
-
             services.AddControllersWithViews();
             services.AddCors(options =>
             {

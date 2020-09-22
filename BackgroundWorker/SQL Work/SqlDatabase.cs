@@ -35,10 +35,9 @@ namespace BackgroundWorker
 
             using (IDbConnection db = this.connectionSql.OpenConnection())
             {
-                var result = await db.QueryAsync<Session>(sQuery, param, commandType: CommandType.StoredProcedure);
+                var result = await db.QueryAsync<Session>(sQuery, param, commandType: CommandType.StoredProcedure);               
                 return result.FirstOrDefault();
             }
         }
-
     }
 }

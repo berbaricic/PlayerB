@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-  results: VideoDetail[];
+  results: VideoDetail[] = [];
   loading: boolean;
   message = '';
 

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using Newtonsoft.Json;
 using SessionControl.Models;
+using SessionControl.SignalR;
 using StackExchange.Redis;
 
 namespace SessionControl.Controllers
@@ -15,28 +17,13 @@ namespace SessionControl.Controllers
     public class SessionsController : ControllerBase
     {
         private readonly IDatabase _cache;
+        public event EventHandler<CacheChangedEventArgs> CacheChanged;
 
         public SessionsController(IDatabase cache)
         {
             _cache = cache;
         }
 
-        //////GET: Sessions/Id
-        //[HttpGet("{sessionId}")]
-        //public Session GetSession(string sessionId)
-        //{
-        //    //get key for cache
-        //    string key = RedisStore.GenerateKey();
-        //    //get object from cache
-        //    var cachedSession = _cache.StringGet(key);
-        //    //convert JSON text to .NET object
-        //    var session = JsonConvert.DeserializeObject<Session>(cachedSession);
-        //    //get timestamp of request
-        //    session.RequestTime = RedisStore.GetTimestamp();
-        //    //update object in SortedSet
-        //    _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
-        //    return session;
-        //}
 
         // POST: Sessions
         [HttpPost]
@@ -49,19 +36,17 @@ namespace SessionControl.Controllers
             //save object in Key-Value pairs and SortedSet
             _cache.StringSetAsync(key, JsonConvert.SerializeObject(session));
             _cache.SortedSetAddAsync("SortedSetOfRequestsTime", key, session.RequestTime);
+
+            //get lenght of sortedset
+            CacheChangedEventArgs args = new CacheChangedEventArgs();
+            args.NumberOfRows = _cache.SortedSetLength("SortedSetOfRequestsTime");
+            OnCacheChanged(args);
         }
 
-        ////PUT: Sessions/Id
-        //[HttpPut("{sessionId}")]
-        //public void PutSession(string sessionId, [FromBody] Session session)
-        //{
-        //    //get timestamp of request
-        //    session.RequestTime = RedisStore.GetTimestamp();
-        //    //get key ofr cache
-        //    string key = RedisStore.GenerateKey();
-        //    //update object in Key-Value pairs and SortedSet
-        //    _cache.StringSet(key, JsonConvert.SerializeObject(session));
-        //    _cache.SortedSetAdd("SortedSetOfRequestsTime", key, session.RequestTime);
-        //}
+        protected virtual void OnCacheChanged(CacheChangedEventArgs e)
+        {
+            CacheChanged?.Invoke(this, e);
+        }
+
     }
 }
