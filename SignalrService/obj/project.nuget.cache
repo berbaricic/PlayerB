@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "0P6PB2/K8flu1kF9dgb9I3qW84lY9dqyDR0y0bTALhp3JaELqa3pCqllQLSiLG6KRo9k+YTU+B5K/EojHhE+WQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\SignalrService\\SignalrService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.8\\microsoft.visualstudio.azure.containers.tools.targets.1.10.8.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\polly\\7.2.1\\polly.7.2.1.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\rabbitmq.client\\6.2.1\\rabbitmq.client.6.2.1.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}

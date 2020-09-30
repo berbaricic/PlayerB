@@ -1,0 +1,16 @@
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\SignalrService.exe
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\RabbitMQ.Client.dll
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\RabbitMqEventBus.dll
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\bin\Debug\netcoreapp3.1\RabbitMqEventBus.pdb
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\obj\Debug\netcoreapp3.1\SignalrService.csprojAssemblyReference.cache
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\obj\Debug\netcoreapp3.1\SignalrService.AssemblyInfoInputs.cache
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\obj\Debug\netcoreapp3.1\SignalrService.AssemblyInfo.cs
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\obj\Debug\netcoreapp3.1\SignalrService.RazorTargetAssemblyInfo.cache
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\obj\Debug\netcoreapp3.1\SignalrService.csproj.CopyComplete
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\obj\Debug\netcoreapp3.1\staticwebassets\SignalrService.StaticWebAssets.Manifest.cache
+C:\Users\Berislav\source\repos\SessionControl\SignalrService\obj\Debug\netcoreapp3.1\staticwebassets\SignalrService.StaticWebAssets.xml

@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Moq;
 using Newtonsoft.Json;
+using RabbitMqEventBus;
 using SessionControl.Models;
-using SessionControl.SignalR;
 using StackExchange.Redis;
 
 namespace SessionControl.Controllers
@@ -18,12 +17,12 @@ namespace SessionControl.Controllers
     public class SessionsController : ControllerBase
     {
         private readonly IDatabase _cache;
-        private readonly IHubContext<SessionHub> sessionHub;
+        private readonly IEventBus _eventBus;
 
-        public SessionsController(IDatabase cache, IHubContext<SessionHub> sessionHub)
+        public SessionsController(IDatabase cache, IEventBus eventBus)
         {
             _cache = cache;
-            this.sessionHub = sessionHub;
+            this._eventBus = eventBus;
         }
 
         // POST: Sessions
@@ -39,14 +38,10 @@ namespace SessionControl.Controllers
             _cache.SortedSetAddAsync("SortedSetOfRequestsTime", key, session.RequestTime);
 
             //get lenght of sortedset   
-            var rowNumber = _cache.SortedSetLength("SortedSetOfRequestsTime");
-            sessionHub.Clients.All.SendAsync("ShowNumber", rowNumber);           
+            long rowNumber = _cache.SortedSetLength("SortedSetOfRequestsTime");
+            IntegrationEvent cacheSizeChangedEvent = new CacheSizeChangedIntegrationEvent(rowNumber);
+            _eventBus.Publish(cacheSizeChangedEvent);
         }
-
-        //protected virtual void OnCacheChanged(CacheChangedEventArgs e)
-        //{
-        //    sessionHub.OnCacheChange?.Invoke(this, e);
-        //}
 
     }
 }

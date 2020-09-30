@@ -11,7 +11,7 @@ export class SignalrService {
 
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:5000/signalr', {
+      .withUrl('http://localhost:5002/sessionhub', {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets
       })
@@ -26,7 +26,7 @@ export class SignalrService {
   public addNumberOfRowsToHeader = () => {
     this.hubConnection.on('ShowNumber', (rowsNumber) => {
       this.rowsNumber = rowsNumber;
-      console.log("from signalr servisa: " + this.rowsNumber);
+      console.log(this.rowsNumber);
     });
   }
 }

@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SessionControl.Models;
 using StackExchange.Redis;
-using SessionControl.SignalR;
-
+using RabbitMqEventBus;
 namespace SessionControl
 {
     public class Startup
@@ -37,7 +35,12 @@ namespace SessionControl
                     .AllowAnyHeader()
                     .AllowAnyOrigin());
             });
-            services.AddSignalR();
+            services.AddSingleton<IEventBus, RabbitMqClient>(sp =>
+            {
+                var eventBusSubscriptionManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+                return new RabbitMqClient(eventBusSubscriptionManager);
+            });
+            services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +68,6 @@ namespace SessionControl
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<SessionHub>("/signalr");
             });
         }
     }

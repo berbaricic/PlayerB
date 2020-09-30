@@ -8,6 +8,8 @@ services:
     container_name: angular
     ports:
       - "4200:4200"
+    depends_on: 
+      - signalr
 
   database:
     build: 
@@ -29,6 +31,7 @@ services:
     depends_on:
       - redis
       - database
+      - rabbitmq
     expose: 
       - "443"
     ports:
@@ -52,5 +55,32 @@ services:
     container_name: redis
     ports:
       - "6379:6379" 
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: rabbitmq
+    ports:
+      - "8080:15672"
+      - "15672:15672"
+      - "5672:5672"
+    hostname: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password  
+
+  signalr:
+    build: 
+      context: .
+      dockerfile: ./SignalrService/Dockerfile 
+    container_name: signalr
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+    expose: 
+      - "443"
+      - "80"
+    ports:
+      - "5002:80"
+      - "5003:5003"
   
     
