@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 using RabbitMqEventBus;
 
 namespace SignalrService
@@ -24,6 +26,23 @@ namespace SignalrService
         {
             services.AddControllers();
             services.AddSignalR();
+            services.AddSingleton<IRabbitMqPersistentConnection>(sp =>
+            {
+                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMqPersistentConnection>>();
+
+                var factory = new ConnectionFactory()
+                {
+                    HostName = "rabbitmq",
+                    DispatchConsumersAsync = true
+                };
+                factory.UserName = "user";
+                factory.Password = "password";
+
+                var retryCount = 5;
+
+                return new DefaultRabbitMqPersistentConnection(factory, logger, retryCount);
+            });
+
             RegisterEventBus(services);
             var container = new ContainerBuilder();
             container.Populate(services);
@@ -56,11 +75,13 @@ namespace SignalrService
 
         private void RegisterEventBus(IServiceCollection services)
         {
-            services.AddSingleton<IEventBus, RabbitMqClient>(sp => 
+            services.AddSingleton<IEventBus, RabbitMqClient>(sp =>
             {
+                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMqPersistentConnection>();
+                var logger = sp.GetRequiredService<ILogger<RabbitMqClient>>();
                 var eventBusSubscriptionManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
                 var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                return new RabbitMqClient(eventBusSubscriptionManager, iLifetimeScope);
+                return new RabbitMqClient(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubscriptionManager);
             });
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
             services.AddTransient<CacheSizeChangedIntegrationEventHandler>();

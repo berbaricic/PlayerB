@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7RsIHPPcOELRqfBMvwax69v6LWclTqVLJ//ZiYNSRBadowXoTb4qWbcIjMZ0vDvFZgbK1BAPwjE4F6U+ZAy5jA==",
+  "dgSpecHash": "DOBHFhf5fmpnu2bKuH79BZnKg4wJ+bFBGu6nAZiZuoP6a/gBTJQ38sXeuveeBt7SkchbSACdFcU3YTY3dWTw6g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\SessionControl\\SessionControl.csproj",
   "expectedPackageFiles": [
@@ -33,7 +33,7 @@
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.0\\microsoft.extensions.dependencyinjection.abstractions.3.1.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\2.2.0\\microsoft.extensions.fileproviders.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\2.2.0\\microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512",
-    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.2.0\\microsoft.extensions.logging.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.8\\microsoft.extensions.logging.abstractions.3.1.8.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.options\\2.2.0\\microsoft.extensions.options.2.2.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.primitives\\2.2.0\\microsoft.extensions.primitives.2.2.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",

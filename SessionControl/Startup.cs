@@ -8,6 +8,9 @@ using RabbitMqEventBus;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using System;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
 
 namespace SessionControl
 {
@@ -38,12 +41,32 @@ namespace SessionControl
                     .AllowAnyHeader()
                     .AllowAnyOrigin());
             });
+            services.AddSingleton<IRabbitMqPersistentConnection>(sp =>
+            {
+                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMqPersistentConnection>>();
+
+                var factory = new ConnectionFactory()
+                {
+                    HostName = "rabbitmq",
+                    DispatchConsumersAsync = true
+                };
+                factory.UserName = "user";
+                factory.Password = "password";
+
+                var retryCount = 5;
+
+                return new DefaultRabbitMqPersistentConnection(factory, logger, retryCount);
+            });
+
             services.AddSingleton<IEventBus, RabbitMqClient>(sp =>
             {
+                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMqPersistentConnection>();
+                var logger = sp.GetRequiredService<ILogger<RabbitMqClient>>();
                 var eventBusSubscriptionManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
                 var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                return new RabbitMqClient(eventBusSubscriptionManager, iLifetimeScope);
+                return new RabbitMqClient(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubscriptionManager);
             });
+
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
             var container = new ContainerBuilder();

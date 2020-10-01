@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  angular:
+    build: 
+      context: .
+      dockerfile: ./VideoplayerApp/Dockerfile
+    container_name: angular
+    ports:
+      - "4200:4200"
+    depends_on: 
+      - signalr
+
+  database:
+    build: 
+      context: .
+      dockerfile: ./MSSQL/Dockerfile
+    restart: always
+    container_name: database
+    ports:
+      - "1433:1433"    
+    volumes: 
+      - ./MSSQL/sqldata:/var/opt/mssql/data 
+ 
+  webapi:
+    build: 
+      context: .
+      dockerfile: ./SessionControl/Dockerfile 
+    container_name: webapi
+    restart: always
+    depends_on:
+      - redis
+      - database
+      - rabbitmq
+    expose: 
+      - "443"
+    ports:
+      - "5000:80"
+      - "5001:5001"
+
+  worker:
+    build: 
+      context: .
+      dockerfile: ./BackgroundWorker/Dockerfile
+    restart: always
+    container_name: worker
+    depends_on:
+      - redis
+      - database
+    ports:
+      - "5100:5100"
+
+  redis:
+    image: "redis:latest"
+    container_name: redis
+    ports:
+      - "6379:6379" 
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: rabbitmq
+    ports:
+      - "8080:15672"
+      - "15672:15672"
+      - "5672:5672"
+    hostname: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password  
+
+  signalr:
+    build: 
+      context: .
+      dockerfile: ./SignalrService/Dockerfile 
+    container_name: signalr
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - webapi
+    expose: 
+      - "443"
+      - "80"
+    ports:
+      - "5002:80"
+      - "5003:5003"
+  
+    

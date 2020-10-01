@@ -16,6 +16,7 @@ namespace RabbitMqEventBus
             _eventTypes = new List<Type>();
         }
 
+        public event EventHandler<string> OnEventRemoved;
         public void AddSubscription<T, TH>()
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>

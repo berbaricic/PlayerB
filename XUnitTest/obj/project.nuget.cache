@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1cvOu3wWpt05hx++rdxIgGXDYbuMyb+FlAyt8+oW3Iy0pzmHZh9VneQ2wB8yng5c+WIL5x2i13vw5iNy4Zz4tg==",
+  "dgSpecHash": "wwmKzYmIjNkjfR++717Q8JtQiL5dxtm9hHH9H7/P28ckD5YZ0TvXv2MaGKgQtuZkeemDudW1zkNJw33UrdwCYg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\XUnitTest\\XUnitTest.csproj",
   "expectedPackageFiles": [
@@ -35,7 +35,7 @@
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.0\\microsoft.extensions.dependencyinjection.abstractions.3.1.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\2.2.0\\microsoft.extensions.fileproviders.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\2.2.0\\microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512",
-    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.2.0\\microsoft.extensions.logging.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.8\\microsoft.extensions.logging.abstractions.3.1.8.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.options\\2.2.0\\microsoft.extensions.options.2.2.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.primitives\\2.2.0\\microsoft.extensions.primitives.2.2.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.net.test.sdk\\16.5.0\\microsoft.net.test.sdk.16.5.0.nupkg.sha512",

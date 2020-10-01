@@ -39,7 +39,8 @@ namespace SessionControl.Controllers
 
             //get lenght of sortedset   
             long rowNumber = _cache.SortedSetLength("SortedSetOfRequestsTime");
-            IntegrationEvent cacheSizeChangedEvent = new CacheSizeChangedIntegrationEvent(rowNumber);
+
+            IntegrationEvent cacheSizeChangedEvent = new CacheSizeChangedIntegrationEvent(rowNumber -1);
             _eventBus.Publish(cacheSizeChangedEvent);
         }
 

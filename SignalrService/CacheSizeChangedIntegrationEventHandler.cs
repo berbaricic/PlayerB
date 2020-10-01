@@ -17,7 +17,7 @@ namespace SignalrService
         }
         public async Task Handle(CacheSizeChangedIntegrationEvent @event)
         {
-            await sessionHub.Clients.All.SendAsync("ShowNumber", @event.NumberOfRows);
+            await sessionHub.Clients.All.SendAsync("ShowNumber", @event.NumberOfRows.ToString());
         }
     }
 }

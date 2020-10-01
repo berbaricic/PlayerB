@@ -8,7 +8,7 @@ namespace RabbitMqEventBus
 {
     public class CacheSizeChangedIntegrationEvent : IntegrationEvent
     {
-        public long NumberOfRows { get; private set; }
+        public long NumberOfRows { get; set; }
 
         public CacheSizeChangedIntegrationEvent(long number)
         {

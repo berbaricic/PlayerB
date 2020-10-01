@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "lIRIJ3d5ZyfpTM4/tNHO7KC0XBODFlDpL2tqxWlMA0Vawnhh+GehQGPW7eM4j3MnF7YoYcgNYfhEIfIiV/mACg==",
+  "dgSpecHash": "50pQO8tjXRLJ5PjS5Wu1pkNP/CQHee4oJAw+JcuiLiNRN0pIcWAbA56I6+Cik3NKyEJIMgdXnkM0xjnaROUaVA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\RabbitMqEventBus\\RabbitMqEventBus.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Berislav\\.nuget\\packages\\autofac\\6.0.0\\autofac.6.0.0.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.8\\microsoft.extensions.logging.abstractions.3.1.8.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\polly\\7.2.1\\polly.7.2.1.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\rabbitmq.client\\6.2.1\\rabbitmq.client.6.2.1.nupkg.sha512",

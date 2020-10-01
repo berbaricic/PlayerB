@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "GoIaGmlBaBhGijKLsNPCUOOLn9xrrtMoDkILgv8rHUOGcGKAL7TFtFzhohB0xay2I9nENdTj2wjtQsluiYPWjA==",
+  "dgSpecHash": "xQoekmd/eu+VF+HaGi3Bvcp9VEua8elTOtqhU7veW/2WYZ8wixcfsqWMQIssb5xWsiQwcz3Z/sRIcHjVwYpX7A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\SignalrService\\SignalrService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Berislav\\.nuget\\packages\\autofac\\6.0.0\\autofac.6.0.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\autofac.extensions.dependencyinjection\\7.0.1\\autofac.extensions.dependencyinjection.7.0.1.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.8\\microsoft.extensions.logging.abstractions.3.1.8.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.8\\microsoft.visualstudio.azure.containers.tools.targets.1.10.8.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\polly\\7.2.1\\polly.7.2.1.nupkg.sha512",

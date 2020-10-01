@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "E6hd8j02uKyaiGFVvJ3LWosAQQpuDHl3GvV9zH2QWiAP0my/pDHFzbJX6hxIipC6U5Z3tvQQlKJPlhtfRhHlyA==",
+  "dgSpecHash": "ttu1tQbYBC1pAu/CCAKiK/xjKFoj9FQu9NSfFjVDjHjCXyqPktEYveCi/Rp6aiqCdzrHs2+0GxAPnaWo/x3BQA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\BackgroundWorker\\BackgroundWorker.csproj",
   "expectedPackageFiles": [
@@ -44,7 +44,7 @@
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.hosting\\3.1.5\\microsoft.extensions.hosting.3.1.5.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\3.1.5\\microsoft.extensions.hosting.abstractions.3.1.5.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging\\3.1.5\\microsoft.extensions.logging.3.1.5.nupkg.sha512",
-    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.5\\microsoft.extensions.logging.abstractions.3.1.5.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.8\\microsoft.extensions.logging.abstractions.3.1.8.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.configuration\\3.1.5\\microsoft.extensions.logging.configuration.3.1.5.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.console\\3.1.5\\microsoft.extensions.logging.console.3.1.5.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\microsoft.extensions.logging.debug\\3.1.5\\microsoft.extensions.logging.debug.3.1.5.nupkg.sha512",
