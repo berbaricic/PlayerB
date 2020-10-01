@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
 using RabbitMqEventBus;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using System;
+
 namespace SessionControl
 {
     public class Startup
@@ -18,7 +21,7 @@ namespace SessionControl
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             string configString = Configuration.GetConnectionString("redis");
             var options = ConfigurationOptions.Parse(configString);
@@ -38,9 +41,15 @@ namespace SessionControl
             services.AddSingleton<IEventBus, RabbitMqClient>(sp =>
             {
                 var eventBusSubscriptionManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-                return new RabbitMqClient(eventBusSubscriptionManager);
+                var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+                return new RabbitMqClient(eventBusSubscriptionManager, iLifetimeScope);
             });
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+
+            var container = new ContainerBuilder();
+            container.Populate(services);
+
+            return new AutofacServiceProvider(container.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

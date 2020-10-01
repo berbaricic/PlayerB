@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "noOunlFu1qUM42nVdC/bLVOyhF16sFBYbup9ivTUwjUkYq55oWnAv3rkonAWRFRyb6yXV5+j3o5WY7GvfiaT+Q==",
+  "dgSpecHash": "lIRIJ3d5ZyfpTM4/tNHO7KC0XBODFlDpL2tqxWlMA0Vawnhh+GehQGPW7eM4j3MnF7YoYcgNYfhEIfIiV/mACg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\RabbitMqEventBus\\RabbitMqEventBus.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Berislav\\.nuget\\packages\\autofac\\6.0.0\\autofac.6.0.0.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\polly\\7.2.1\\polly.7.2.1.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\rabbitmq.client\\6.2.1\\rabbitmq.client.6.2.1.nupkg.sha512",
+    "C:\\Users\\Berislav\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\Berislav\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512"
   ],

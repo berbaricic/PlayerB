@@ -125,3 +125,10 @@ C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreap
 C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\Autofac.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\Dapper.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\Polly.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\RabbitMQ.Client.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\RabbitMqEventBus.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\RabbitMqEventBus.pdb
