@@ -83,15 +83,30 @@ Za izradu projekta korištene su sljedeće tehnologije:
   * Postman - Web API testiranje
   * JMeter - load testiranje
   
-## Dodatni zadaci: SignalR, XUnit 
+## Dodatni dijelovi: RabbitMQ, SignalR, XUnit
+
+### RabbitMQ
+
+U ovom dijelu će biti opisana i implementirana event-based komunikacija između mikroservisa. Kada koristimo event-based komunikaciju, mikroservis objavljuje (publish) event kada se nešto značajno dogodi te ostali mikroservisi se pretplate (subscribe) na taj događaj. Kada mikroservis zaprimi event pomoću event handlera, on može uraditi bilo kakvu promjenu te također može sam objaviti novi event. Ovaj publish/subscribe sustav se uglavnom izvodi pomoću implementacije event bus-a. Event bus može biti dizajniran kao sučelje s APIjem potrebnim za pretplatu na evente i objavljivanje event-a. Implementaciju sučelja event bus-a izvest ćemo uz pomoć RabbitMQ-a. RabbitMQ je message broker: on prihvaća i prosljeđuje poruke. RabbitMQ funkcionira kao posrednik između publishera i subscribera kako bi upravljao distribucijom.
+
+Zadatak u kojem bi koristi koncept event-based komunikacije i tehnologiju RabbitMQ glasi ovako: Pri promjeni broja zapisa u cache-u, emitirati 
+event s brojem zapisa na RabbitMQ (publish) te napisati event handlera na servisu SignalR koji će broadcast-at tu informaciju na korisničku aplikaciju.
+
+Rješavanje zadatka je započeto s podizanjem RabbitMQ Event bus-a uz pomoć Dockera. Potom je kreiran shared library naziva "RabbitMqEventBus" u kojem je
+je kreirana klasa CacheSizeChangedIntegrationEvent koja nasljeđuje IntegrationEvent te ova klasa zapravo predstavlja naš event koji ćemo emitiriati i s 
+kojim ćemo prosljedit podatke. Nadalje kreirano je generičko sučelje IEventBus s metodama Publish i Subscribe koje su izvedene u klasi RabbitMqClient.
+Nakon implementacije RabbitMqClient klase, event bus je registriran u Startup klasi servisa SessionControl te okidanjem POST metode na kontroleru, publish-a 
+se event na RabbitMQ. U servisu SignalR također je registriran event bus u Startup klasi te se SignalR pretplatio na event publish-an u servisu SessionControl. 
+Za pristupanje tom event-u, kreiran je event handler CacheSizeChangedIntegrationEventHandler te metoda Handle iz koje se broadcast-a informacija na korisničku
+aplikaciju uz pomoć hub-a.
 
 ### SignalR 
 
 SignalR je open-source library koji pojednostavljuje dodavanje real-time funkcionalnosti aplikacijama uz pomoć HTTP-a (protokol za komunikaciju između klijenta i servera). Real-time znači da server strana push-a podatke istog trena na sve klijente koji su povezani. SignalR koristi "hubs" - high level pipeline koji omogućuje klijentu i serveru međusobno pozivanje metoda.
 
-Za primjenu SignalR, riješen je sljedeći zadatak: SignalR servis push-a periodično broj zapisa iz tablice Session na korisničku aplikaciju te se taj broj prikazuje u headeru.
+Za primjenu SignalR, riješen je sljedeći zadatak: SignalR servis na okidanje eventa CacheSizeChangedIntegrationEvent push-a trenutni broj zapisa u cache-u na korisničku aplikaciju te se taj broj prikazuje u headeru.
 
-Rješavanje zadatka je započeto s preuzimanjem SignalR library-a. Budući da je SignalR server library već uključen u ASP.NET Core, samo je preuzet SignalR client library za Angular. 
+Rješavanje zadatka je započeto s kreiranjem novog projekta kojem je dodjeljen naziv SignalRService te odmah su konfigurirane postavke za pokretanje ovog projekta. Nastavili smo s preuzimanjem SignalR library-a. Budući da je SignalR server library već uključen u ASP.NET Core, samo je preuzet SignalR client library za Angular. 
 Nakon toga kreirana je klasa SessionHub koja se izvodi iz klase SignalR Hub. SessionHub klasa je prazna jer zasad ostvarujemo samo jednosmjernu komunikaciju (server prema klijentu), stoga nijedna metoda nije tu kreirana.
 Potom, u ConfigureService metodi dodan je SignalR u IService kolekciju te u metodi Configure usmjeravamo SignalR zahtjeve na SessionHub uz pomoć putanje /signalr.
 Kako bi upravljali s HTTP zahtjevima, kreiramo novi kontroler koji ima putanju api/signalr. U kontroleru kreiramo instancu interface-a IHubContext (dependency injection) te s objektom instance može pristupiti i pozvati hub-ove metode.
@@ -101,7 +116,7 @@ o broju zapisa u bazi prikazujemo u Navigation komponenti.
 
 ### XUnit
 
-Xunit je besplatni open-source alat za testiranje dijelova u .NET Core-u. Unit testovi su provedeni na testnoj klasi koja je kreirana samo za odrađivanje ovog zadatka. Ime klase je Weather te sadrži metodu za testiranje. Metoda "MethodTest" provjerava parametre metode da li su null te provjerava da li lokacija sadrži brojeve. Nadalje, metoda poziva 3rd party servis (Weather API), čeka odgovor te ga evaluira. Rad s servisom treba biti riješen korištenjem Moy frameworka, to znači da ćemo imitirati ponašanje objekata HttpWebRequest i HttpWebRequest te time nećemo stvarati prave objekte (nećemo pozivati servis, čekati odgovor, evaluirati pravi odgovor). Ovo izolira kôd koji testiramo, osiguravajući da radi sam za sebe i da niti jedan drugi kôd neće srušiti testove.
+Xunit je open-source alat za testiranje dijelova u .NET Core-u. Unit testovi su provedeni na testnoj klasi koja je kreirana samo za odrađivanje ovog zadatka. Ime klase je Weather te sadrži metodu za testiranje. Metoda "MethodTest" provjerava parametre metode da li su null te provjerava da li lokacija sadrži brojeve. Nadalje, metoda poziva 3rd party servis (Weather API), čeka odgovor te ga evaluira. Rad s servisom treba biti riješen korištenjem Moy frameworka, to znači da ćemo imitirati ponašanje objekata HttpWebRequest i HttpWebRequest te time nećemo stvarati prave objekte (nećemo pozivati servis, čekati odgovor, evaluirati pravi odgovor). Ovo izolira kôd koji testiramo, osiguravajući da radi sam za sebe i da niti jedan drugi kôd neće srušiti testove.
 
 Prvo su provedena tri testa koja su vezana uz provjeru argumenata, a zatim su provedena tri testa koji obuhvaćaju rad s mockanim objektima. U tim testovima prvo su kreirani mockani objekti te zatim je testirano ponašanje dijela metode s servisom. 
 
