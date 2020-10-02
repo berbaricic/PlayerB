@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RabbitMqEventBus;
 using SessionControl.Models;
@@ -40,7 +34,7 @@ namespace SessionControl.Controllers
             //get lenght of sortedset   
             long rowNumber = _cache.SortedSetLength("SortedSetOfRequestsTime");
 
-            IntegrationEvent cacheSizeChangedEvent = new CacheSizeChangedIntegrationEvent(rowNumber -1);
+            IntegrationEvent cacheSizeChangedEvent = new CacheSizeChangedIntegrationEvent(rowNumber);
             _eventBus.Publish(cacheSizeChangedEvent);
         }
 

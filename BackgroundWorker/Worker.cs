@@ -45,10 +45,9 @@ namespace BackgroundWorker
             {
                 //time when background worker start checking 
                 timestampNow = (int)new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds();
-                logger.LogInformation("Vrijeme paljenja: " + timestampNow.ToString());
+                logger.LogInformation("Worker started at: " + timestampNow.ToString());
                 //sessions with time before this (timestampLimit) are invalid
                 timestampLimit = timestampNow - 60;
-                logger.LogInformation("Vrijeme limit: " + timestampLimit.ToString());
 
                 //command - ZRANGEBYSCORE key min(-inf) max(timestampLimit)
                 //Expired values
@@ -59,7 +58,6 @@ namespace BackgroundWorker
                     //stringGet(item) --> value
                     var cachedSession = _cache.StringGet(expired.ToString());
                     var session = JsonConvert.DeserializeObject<Session>(cachedSession);
-                    logger.LogInformation("Hi, from Worker.");
                     //value save to sql db
                     await this.sqlDatabase.SaveToDatabase(session);
                     //After saving to db, remove key from cache

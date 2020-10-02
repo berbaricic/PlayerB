@@ -23,7 +23,6 @@ namespace BackgroundWorker
         public SqlConnection OpenConnection()
         {
             SqlConnection connection = new SqlConnection("Server = database; Database = SessionDatabase; User = sa; Password = Pa&&word2020");
-            //connection.ConnectionString = Configuration.GetConnectionString("database");
             connection.Open();
             return connection;
         }
