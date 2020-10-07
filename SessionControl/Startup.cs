@@ -76,27 +76,18 @@ namespace SessionControl
             });
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-            var pgrmData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            Directory.CreateDirectory($"{pgrmData}\\SessionControl\\keys");
-            services.AddDataProtection()
-                .PersistKeysToFileSystem(new DirectoryInfo($"{pgrmData}\\SessionControl\\keys"));
+            
             //SQL - Hangfire Job Storage
             services.AddHangfire(configuration => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
-                {
-                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-                    QueuePollInterval = TimeSpan.Zero,
-                    UseRecommendedIsolationLevel = true,
-                    DisableGlobalLocks = true
-                }));
+                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection")));
+
             //Redis - Hangfire Job Storage
-            services.AddHangfire(configuration => configuration.UseRedisStorage(
-                Configuration.GetConnectionString("redis"), 
-                new RedisStorageOptions { Prefix = "{hangfire-1}:" }));
+            //services.AddHangfire(configuration => configuration.UseRedisStorage(
+            //    Configuration.GetConnectionString("redis"), 
+            //    new RedisStorageOptions { Prefix = "{hangfire-1}:" }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,8 +111,6 @@ namespace SessionControl
             app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
-
-            //Hangfire settings
             
             app.UseEndpoints(endpoints =>
             {
@@ -130,8 +119,11 @@ namespace SessionControl
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseHangfireServer();
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+            {
+                Authorization = new[] { new MyAuthorizationFilter() },
+                IgnoreAntiforgeryToken = true
+            });
 
             //Fire-and-forget
             BackgroundJob.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));

@@ -10,8 +10,7 @@ namespace SessionControl.Hangfire
     {
         public bool Authorize(DashboardContext context)
         {
-            var user = context.GetHttpContext().User;
-            return user.Identity.IsAuthenticated;
+            return true;
         }
     }
 }

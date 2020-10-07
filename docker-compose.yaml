@@ -88,5 +88,18 @@ services:
     ports:
       - "5002:90"
       - "5003:5003"
+
+  hangfire:
+    build:
+      context: .
+      dockerfile: ./HangfireServer/Dockerfile
+    container_name: hangfire
+    restart: on-failure
+    depends_on:
+      - redis
+      - database
+   
+  
+
   
     
