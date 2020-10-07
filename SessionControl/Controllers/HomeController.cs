@@ -11,7 +11,13 @@ namespace WebApplication2.Controllers
     {
         public class HomeController : Controller
         {
-            public IActionResult Index()
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            this._logger = logger;
+        }
+        public IActionResult Index()
             {
                 return View();
             }

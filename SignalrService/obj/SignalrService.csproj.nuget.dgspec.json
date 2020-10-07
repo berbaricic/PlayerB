@@ -120,6 +120,10 @@
               "target": "Package",
               "version": "[7.0.1, )"
             },
+            "HangFire.Redis.StackExchange": {
+              "target": "Package",
+              "version": "[1.8.4, )"
+            },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.10.8, )"

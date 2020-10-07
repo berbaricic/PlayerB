@@ -1,5 +1,7 @@
 CREATE DATABASE SessionDatabase;
 GO
+CREATE DATABASE HangfireDatabase;
+GO
 USE SessionDatabase;
 GO
 

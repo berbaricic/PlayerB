@@ -6,11 +6,18 @@ using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
 using RabbitMqEventBus;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using System;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
+using Hangfire;
+using Hangfire.AspNetCore;
+using Hangfire.SqlServer;
+using Hangfire.Dashboard;
+using System.Collections.Generic;
+using SessionControl.Hangfire;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
+using Hangfire.Redis;
 
 namespace SessionControl
 {
@@ -24,14 +31,15 @@ namespace SessionControl
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services)
+        {      
             string configString = Configuration.GetConnectionString("redis");
             var options = ConfigurationOptions.Parse(configString);
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
             services.AddScoped(s => redis.GetDatabase());
 
             services.AddControllersWithViews();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -68,11 +76,27 @@ namespace SessionControl
             });
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-
-            var container = new ContainerBuilder();
-            container.Populate(services);
-
-            return new AutofacServiceProvider(container.Build());
+            var pgrmData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            Directory.CreateDirectory($"{pgrmData}\\SessionControl\\keys");
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo($"{pgrmData}\\SessionControl\\keys"));
+            //SQL - Hangfire Job Storage
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                }));
+            //Redis - Hangfire Job Storage
+            services.AddHangfire(configuration => configuration.UseRedisStorage(
+                Configuration.GetConnectionString("redis"), 
+                new RedisStorageOptions { Prefix = "{hangfire-1}:" }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,10 +121,22 @@ namespace SessionControl
 
             app.UseAuthorization();
 
+            //Hangfire settings
+            
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
+
+            //Fire-and-forget
+            BackgroundJob.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+            //Recurring
+            RecurringJob.AddOrUpdate(() => Console.WriteLine("Minutely Job"), Cron.Minutely);
         }
     }
 }
