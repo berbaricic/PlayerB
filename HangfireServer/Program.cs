@@ -9,14 +9,13 @@ namespace HangfireServer
     {
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello world.");
+            Console.WriteLine("Starting Hangfire server.");
             GlobalConfiguration.Configuration.UseSqlServerStorage("Server = database; Database = HangfireDatabase; User = sa; Password = Pa&&word2020;");
 
             var hostBuilder = new HostBuilder().ConfigureServices((hostContext, services) =>
             {
                 
             });
-
             using (var server = new BackgroundJobServer(new BackgroundJobServerOptions()
             {
                 //defulat value
@@ -24,7 +23,6 @@ namespace HangfireServer
             }))
             {
                 await hostBuilder.RunConsoleAsync();
-                Console.WriteLine("Spajanje.");
             }
         }
     }

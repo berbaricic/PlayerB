@@ -20,8 +20,7 @@ export class VideoComponent implements OnInit, OnDestroy
   intervalId: any;
   isVideoPlay: boolean;
   playerState: any;
-
-
+  name: any;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private sessiondata: SessiondataService,
@@ -50,6 +49,9 @@ export class VideoComponent implements OnInit, OnDestroy
         UserAdress: this.ipAdress,
         IdVideo: this.id
       });
+      this.sessiondata.createOnVideoPlay({
+        IdVideo: this.id
+        });
       this.isVideoPlay = true;
       this.intervalId = setInterval(() => this.sendPing(), 30000);
     }

@@ -36,6 +36,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalrService", "SignalrSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireServer", "HangfireServer\HangfireServer.csproj", "{708A0F19-3C0A-45E8-937C-C73DB3A6AF33}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireWorker", "HangfireWorker\HangfireWorker.csproj", "{DCE08076-4057-4A9F-8FBA-345A9BD47F3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{708A0F19-3C0A-45E8-937C-C73DB3A6AF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{708A0F19-3C0A-45E8-937C-C73DB3A6AF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{708A0F19-3C0A-45E8-937C-C73DB3A6AF33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCE08076-4057-4A9F-8FBA-345A9BD47F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCE08076-4057-4A9F-8FBA-345A9BD47F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCE08076-4057-4A9F-8FBA-345A9BD47F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCE08076-4057-4A9F-8FBA-345A9BD47F3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,29 +6,21 @@ import { HttpClient} from '@angular/common/http';
 })
 export class SessiondataService {
 
-  private baseUrl = 'http://localhost:5000/Sessions';
+  private baseUrl = 'http://localhost:5000/';
 
   constructor(private http: HttpClient) { }
 
   public create(data) {
     const client = new XMLHttpRequest();
-    client.open("POST", this.baseUrl);
+    client.open("POST", this.baseUrl + "Sessions");
     client.setRequestHeader('Content-Type', 'application/json');
     client.send(JSON.stringify(data));
   }
 
-  public update(data, id) {
+  public createOnVideoPlay(data) {
     const client = new XMLHttpRequest();
-    client.open("PUT", this.baseUrl + "/" + id);
+    client.open("POST", this.baseUrl + "Video");
     client.setRequestHeader('Content-Type', 'application/json');
     client.send(JSON.stringify(data));
-  }
-
-  public read(id) {
-    const client = new XMLHttpRequest();
-    client.open("GET", this.baseUrl + "/" + id);
-    client.setRequestHeader('Content-Type', 'application/json');
-    client.send();
-    console.log(client.responseText);
   }
 }

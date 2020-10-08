@@ -6,18 +6,13 @@ using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
 using RabbitMqEventBus;
 using Autofac;
-using System;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using Hangfire;
-using Hangfire.AspNetCore;
-using Hangfire.SqlServer;
-using Hangfire.Dashboard;
-using System.Collections.Generic;
 using SessionControl.Hangfire;
-using Microsoft.AspNetCore.DataProtection;
-using System.IO;
-using Hangfire.Redis;
+using Autofac.Extensions.DependencyInjection;
+using System;
+using Newtonsoft.Json;
 
 namespace SessionControl
 {
@@ -31,7 +26,7 @@ namespace SessionControl
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {      
             string configString = Configuration.GetConnectionString("redis");
             var options = ConfigurationOptions.Parse(configString);
@@ -88,6 +83,10 @@ namespace SessionControl
             //services.AddHangfire(configuration => configuration.UseRedisStorage(
             //    Configuration.GetConnectionString("redis"), 
             //    new RedisStorageOptions { Prefix = "{hangfire-1}:" }));
+            var container = new ContainerBuilder();
+            container.Populate(services);
+
+            return new AutofacServiceProvider(container.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,12 +122,7 @@ namespace SessionControl
             {
                 Authorization = new[] { new MyAuthorizationFilter() },
                 IgnoreAntiforgeryToken = true
-            });
-
-            //Fire-and-forget
-            BackgroundJob.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
-            //Recurring
-            RecurringJob.AddOrUpdate(() => Console.WriteLine("Minutely Job"), Cron.Minutely);
+            });          
         }
     }
 }
