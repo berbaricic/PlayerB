@@ -26,15 +26,17 @@
         "dependencies": {
           "Autofac.Extensions.DependencyInjection": "7.0.1",
           "Dapper": "2.0.35",
-          "Hangfire.Redis": "2.0.1",
+          "Hangfire.Redis.StackExchange": "1.8.4",
           "Hangfire.AspNetCore": "1.7.14",
           "Hangfire.Core": "1.7.14",
           "Hangfire.SqlServer": "1.7.14",
+          "HangfireWorker": "1.0.0",
           "Microsoft.AspNetCore.Session": "2.2.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.10.8",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.4",
           "Moq": "4.14.5",
           "RabbitMqEventBus": "1.0.0",
+          "SessionLibrary": "1.0.0",
           "StackExchange.Redis": "2.1.58",
           "System.Configuration.ConfigurationManager": "4.7.0",
           "System.Data.SqlClient": "4.8.1",
@@ -118,7 +120,6 @@
           "Microsoft.CSharp": "4.0.0.0",
           "Microsoft.Extensions.Caching.Abstractions.Reference": "3.1.0.0",
           "Microsoft.Extensions.Caching.Memory": "3.1.0.0",
-          "Microsoft.Extensions.Configuration.Abstractions.Reference": "3.1.0.0",
           "Microsoft.Extensions.Configuration.Binder": "3.1.0.0",
           "Microsoft.Extensions.Configuration.CommandLine": "3.1.0.0",
           "Microsoft.Extensions.Configuration": "3.1.0.0",
@@ -156,7 +157,6 @@
           "Microsoft.Extensions.Options.ConfigurationExtensions": "3.1.0.0",
           "Microsoft.Extensions.Options.DataAnnotations": "3.1.0.0",
           "Microsoft.Extensions.Options.Reference": "3.1.0.0",
-          "Microsoft.Extensions.Primitives.Reference": "3.1.0.0",
           "Microsoft.Extensions.WebEncoders": "3.1.0.0",
           "Microsoft.JSInterop": "3.1.0.0",
           "Microsoft.Net.Http.Headers": "3.1.0.0",
@@ -449,7 +449,21 @@
           "lib/netstandard2.0/Hangfire.Core.dll": {}
         }
       },
-      "Hangfire.Redis/2.0.1": {},
+      "Hangfire.Redis.StackExchange/1.8.4": {
+        "dependencies": {
+          "Hangfire.Core": "1.7.14",
+          "StackExchange.Redis": "2.1.58"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.Redis.StackExchange.dll": {
+            "assemblyVersion": "1.8.4.0",
+            "fileVersion": "1.8.4.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Hangfire.Redis.StackExchange.dll": {}
+        }
+      },
       "Hangfire.SqlServer/1.7.14": {
         "dependencies": {
           "Hangfire.Core": "1.7.14",
@@ -490,7 +504,7 @@
       "Microsoft.AspNetCore.Hosting.Server.Abstractions/2.2.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "2.2.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "2.2.0"
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.8"
         }
       },
       "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
@@ -506,7 +520,7 @@
       },
       "Microsoft.AspNetCore.Http.Features/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "2.2.0"
+          "Microsoft.Extensions.Primitives": "3.1.8"
         }
       },
       "Microsoft.AspNetCore.Razor/2.2.0": {
@@ -799,12 +813,21 @@
       },
       "Microsoft.Extensions.Caching.Abstractions/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "2.2.0"
+          "Microsoft.Extensions.Primitives": "3.1.8"
         }
       },
-      "Microsoft.Extensions.Configuration.Abstractions/2.2.0": {
+      "Microsoft.Extensions.Configuration.Abstractions/3.1.8": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "2.2.0"
+          "Microsoft.Extensions.Primitives": "3.1.8"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "3.1.8.0",
+            "fileVersion": "3.100.820.42004"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection/3.1.0": {
@@ -815,12 +838,12 @@
       "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.0": {},
       "Microsoft.Extensions.FileProviders.Abstractions/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "2.2.0"
+          "Microsoft.Extensions.Primitives": "3.1.8"
         }
       },
       "Microsoft.Extensions.Hosting.Abstractions/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.8",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
           "Microsoft.Extensions.FileProviders.Abstractions": "2.2.0",
           "Microsoft.Extensions.Logging.Abstractions": "3.1.8"
@@ -840,14 +863,19 @@
       "Microsoft.Extensions.Options/2.2.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
-          "Microsoft.Extensions.Primitives": "2.2.0",
+          "Microsoft.Extensions.Primitives": "3.1.8",
           "System.ComponentModel.Annotations": "4.5.0"
         }
       },
-      "Microsoft.Extensions.Primitives/2.2.0": {
-        "dependencies": {
-          "System.Memory": "4.5.4",
-          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+      "Microsoft.Extensions.Primitives/3.1.8": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "3.1.8.0",
+            "fileVersion": "3.100.820.42004"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {},
@@ -2135,6 +2163,22 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "HangfireWorker/1.0.0": {
+        "dependencies": {
+          "Dapper": "2.0.35",
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.8",
+          "Newtonsoft.Json": "12.0.3",
+          "SessionLibrary": "1.0.0",
+          "StackExchange.Redis": "2.1.58",
+          "System.Data.SqlClient": "4.8.1"
+        },
+        "runtime": {
+          "HangfireWorker.dll": {}
+        },
+        "compile": {
+          "HangfireWorker.dll": {}
+        }
+      },
       "RabbitMqEventBus/1.0.0": {
         "dependencies": {
           "Autofac": "6.0.0",
@@ -2148,6 +2192,14 @@
         },
         "compile": {
           "RabbitMqEventBus.dll": {}
+        }
+      },
+      "SessionLibrary/1.0.0": {
+        "runtime": {
+          "SessionLibrary.dll": {}
+        },
+        "compile": {
+          "SessionLibrary.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -2630,12 +2682,6 @@
         },
         "compileOnly": true
       },
-      "Microsoft.Extensions.Configuration.Abstractions.Reference/3.1.0.0": {
-        "compile": {
-          "Microsoft.Extensions.Configuration.Abstractions.dll": {}
-        },
-        "compileOnly": true
-      },
       "Microsoft.Extensions.Configuration.Binder/3.1.0.0": {
         "compile": {
           "Microsoft.Extensions.Configuration.Binder.dll": {}
@@ -2855,12 +2901,6 @@
       "Microsoft.Extensions.Options.Reference/3.1.0.0": {
         "compile": {
           "Microsoft.Extensions.Options.dll": {}
-        },
-        "compileOnly": true
-      },
-      "Microsoft.Extensions.Primitives.Reference/3.1.0.0": {
-        "compile": {
-          "Microsoft.Extensions.Primitives.dll": {}
         },
         "compileOnly": true
       },
@@ -3862,12 +3902,12 @@
       "path": "hangfire.core/1.7.14",
       "hashPath": "hangfire.core.1.7.14.nupkg.sha512"
     },
-    "Hangfire.Redis/2.0.1": {
+    "Hangfire.Redis.StackExchange/1.8.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kE8e1lBcUB4aOc30ieSdsKqE9PSGMEM4Eb0Qmy9e4gseXzhzXokdMXJ2/mMEa5DQiXT2O7aBNubigDnNExusdg==",
-      "path": "hangfire.redis/2.0.1",
-      "hashPath": "hangfire.redis.2.0.1.nupkg.sha512"
+      "sha512": "sha512-0nVAwP5lt5JdDaCvHJ2oBHRB4JRKGqt8/lBJYHvHe/ChcKLaWIkfHL6exXLhvKPEFbebt3bpSqrZ7ydSmM4kmw==",
+      "path": "hangfire.redis.stackexchange/1.8.4",
+      "hashPath": "hangfire.redis.stackexchange.1.8.4.nupkg.sha512"
     },
     "Hangfire.SqlServer/1.7.14": {
       "type": "package",
@@ -4016,12 +4056,12 @@
       "path": "microsoft.extensions.caching.abstractions/2.2.0",
       "hashPath": "microsoft.extensions.caching.abstractions.2.2.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration.Abstractions/2.2.0": {
+    "Microsoft.Extensions.Configuration.Abstractions/3.1.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-65MrmXCziWaQFrI0UHkQbesrX5wTwf9XPjY5yFm/VkgJKFJ5gqvXRoXjIZcf2wLi5ZlwGz/oMYfyURVCWbM5iw==",
-      "path": "microsoft.extensions.configuration.abstractions/2.2.0",
-      "hashPath": "microsoft.extensions.configuration.abstractions.2.2.0.nupkg.sha512"
+      "sha512": "sha512-0qbNyxGpuNP/fuQ3FLHesm1Vn/83qYcAgVsi1UQCQN1peY4YH1uiizOh4xbYkQyxiVMD/c/zhiYYv94G0DXSSA==",
+      "path": "microsoft.extensions.configuration.abstractions/3.1.8",
+      "hashPath": "microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyInjection/3.1.0": {
       "type": "package",
@@ -4065,12 +4105,12 @@
       "path": "microsoft.extensions.options/2.2.0",
       "hashPath": "microsoft.extensions.options.2.2.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Primitives/2.2.0": {
+    "Microsoft.Extensions.Primitives/3.1.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-azyQtqbm4fSaDzZHD/J+V6oWMFaf2tWP4WEGIYePLCMw3+b2RQdj9ybgbQyjCshcitQKQ4lEDOZjmSlTTrHxUg==",
-      "path": "microsoft.extensions.primitives/2.2.0",
-      "hashPath": "microsoft.extensions.primitives.2.2.0.nupkg.sha512"
+      "sha512": "sha512-XcIoXQhT0kwnEhOKv/LmpWR6yF6QWmBTy9Fcsz4aHuCOgTJ7Zd23ELtUA4BfwlYoFlSedavS+vURz9tNekd44g==",
+      "path": "microsoft.extensions.primitives/3.1.8",
+      "hashPath": "microsoft.extensions.primitives.3.1.8.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/3.1.0": {
       "type": "package",
@@ -4975,7 +5015,17 @@
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
     },
+    "HangfireWorker/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "RabbitMqEventBus/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SessionLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -5380,11 +5430,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Extensions.Configuration.Abstractions.Reference/3.1.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Microsoft.Extensions.Configuration.Binder/3.1.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -5566,11 +5611,6 @@
       "sha512": ""
     },
     "Microsoft.Extensions.Options.Reference/3.1.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.Extensions.Primitives.Reference/3.1.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

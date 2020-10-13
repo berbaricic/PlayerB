@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using SessionControl.Models;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
+using SessionLibrary;
 
 namespace BackgroundWorker
 {

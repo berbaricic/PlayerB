@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RabbitMqEventBus;
 using SessionControl.Models;
+using SessionLibrary;
 using StackExchange.Redis;
 using System;
 using System.Text.Json;
@@ -15,16 +16,13 @@ namespace SessionControl.Controllers
     {
         private readonly IDatabase _cache;
         private readonly IEventBus _eventBus;
-        private readonly IBackgroundJobClient _backgroundJobClient;
-        private readonly IRecurringJobManager _recurringJobManager;
+        private readonly IBackgroundJobClient backgroundJobClient;
 
-        public SessionsController(IDatabase cache, IEventBus eventBus, 
-            IBackgroundJobClient backgroundJobClient, IRecurringJobManager recurringJobManager)
+        public SessionsController(IDatabase cache, IEventBus eventBus, IBackgroundJobClient backgroundJobClient)
         {
             _cache = cache;
             this._eventBus = eventBus;
-            this._backgroundJobClient = backgroundJobClient;
-            this._recurringJobManager = recurringJobManager;
+            this.backgroundJobClient = backgroundJobClient;
         }
 
         // POST: Sessions
@@ -53,17 +51,18 @@ namespace SessionControl.Controllers
         public void SendEmailToConsumer([FromBody]Session session)
         {
             string idVideo = session.IdVideo;
-            _backgroundJobClient.Enqueue(() => Console.WriteLine("Hello from controller!"));
 
-            var id1 = _backgroundJobClient.Schedule<HangfireJob>(sender => sender.SendEMail(idVideo), TimeSpan.FromMinutes(5));
+            backgroundJobClient.Schedule<HangfireJob>(worker => worker.PersistDataToDatabase(), TimeSpan.FromMinutes(1));
+            backgroundJobClient.Enqueue(() => Console.WriteLine("Hello from controller!"));
 
-            _backgroundJobClient.ContinueJobWith<HangfireJob>(id1, setter => setter.DoSomeWorkAfterSendingEMail());
+            //var id1 = _backgroundJobClient.Schedule<HangfireJob>(sender => sender.SendEMail(idVideo), TimeSpan.FromMinutes(5));
 
-            //fires every Sunday at 19:30
-            _recurringJobManager.AddOrUpdate(idVideo, () => Console.WriteLine("Cron weekly"), Cron.Weekly(0, 19, 30));
+            //_backgroundJobClient.ContinueJobWith<HangfireJob>(id1, setter => setter.DoSomeWorkAfterSendingEMail());
+            ////fires every Sunday at 19:30
+            //_recurringJobManager.AddOrUpdate(idVideo, () => Console.WriteLine("Cron weekly"), Cron.Weekly(0, 19, 30));
 
-            //fire at 12:00 PM (noon) every day
-            _recurringJobManager.AddOrUpdate(idVideo + "test", () => Console.WriteLine("Cron expression"), "0 0 12 * * ?");
+            ////fire at 12:00 PM (noon) every day
+            //_recurringJobManager.AddOrUpdate(idVideo + "test", () => Console.WriteLine("Cron expression"), "0 0 12 * * ?");
         }
 
 

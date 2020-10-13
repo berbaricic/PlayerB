@@ -20,8 +20,6 @@ C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreap
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
-C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.Data.SqlClient.dll
-C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Data.SqlClient.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\Hangfire.Redis.StackExchange.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
@@ -72,7 +70,17 @@ C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreap
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\HangfireServer.runtimeconfig.dev.json
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\HangfireServer.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\HangfireServer.pdb
-C:\Users\Berislav\source\repos\SessionControl\HangfireServer\obj\Debug\netcoreapp3.1\HangfireServer.csproj.CoreCompileInputs.cache
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\obj\Debug\netcoreapp3.1\HangfireServer.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\obj\Debug\netcoreapp3.1\HangfireServer.pdb
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\obj\Debug\netcoreapp3.1\HangfireServer.genruntimeconfig.cache
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\Dapper.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\Unity.Abstractions.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\Unity.Container.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\HangfireWorker.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\SessionLibrary.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\HangfireWorker.pdb
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\SessionLibrary.pdb

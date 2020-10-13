@@ -4,6 +4,8 @@ C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\obj\Debug\netcoreap
 C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\obj\Debug\netcoreapp3.1\HangfireWorker.AssemblyInfoInputs.cache
 C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\obj\Debug\netcoreapp3.1\HangfireWorker.AssemblyInfo.cs
 C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\bin\Debug\netcoreapp3.1\HangfireWorker.pdb
-C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\obj\Debug\netcoreapp3.1\HangfireWorker.csproj.CoreCompileInputs.cache
 C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\obj\Debug\netcoreapp3.1\HangfireWorker.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\obj\Debug\netcoreapp3.1\HangfireWorker.pdb
+C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\bin\Debug\netcoreapp3.1\SessionLibrary.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\bin\Debug\netcoreapp3.1\SessionLibrary.pdb
+C:\Users\Berislav\source\repos\SessionControl\HangfireWorker\obj\Debug\netcoreapp3.1\HangfireWorker.csproj.CopyComplete

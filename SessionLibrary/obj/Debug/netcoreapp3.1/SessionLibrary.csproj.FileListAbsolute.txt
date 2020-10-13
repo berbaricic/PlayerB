@@ -1,0 +1,9 @@
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\bin\Debug\netcoreapp3.1\SessionLibrary.deps.json
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\bin\Debug\netcoreapp3.1\SessionLibrary.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\bin\Debug\netcoreapp3.1\SessionLibrary.pdb
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\obj\Debug\netcoreapp3.1\SessionLibrary.csprojAssemblyReference.cache
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\obj\Debug\netcoreapp3.1\SessionLibrary.AssemblyInfoInputs.cache
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\obj\Debug\netcoreapp3.1\SessionLibrary.AssemblyInfo.cs
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\obj\Debug\netcoreapp3.1\SessionLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\obj\Debug\netcoreapp3.1\SessionLibrary.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionLibrary\obj\Debug\netcoreapp3.1\SessionLibrary.pdb

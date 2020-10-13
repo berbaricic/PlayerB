@@ -147,3 +147,10 @@ C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreap
 C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\zh\Hangfire.Core.resources.dll
 C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\Hangfire.AspNetCore.dll
 C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\Hangfire.SqlServer.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\Hangfire.Redis.StackExchange.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\HangfireWorker.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\SessionLibrary.dll
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\HangfireWorker.pdb
+C:\Users\Berislav\source\repos\SessionControl\SessionControl\bin\Debug\netcoreapp3.1\SessionLibrary.pdb

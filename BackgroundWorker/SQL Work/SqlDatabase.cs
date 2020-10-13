@@ -1,13 +1,9 @@
 ﻿using Dapper;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SessionControl.Models;
-using System;
-using System.Collections.Generic;
+using SessionLibrary;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BackgroundWorker
