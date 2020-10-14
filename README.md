@@ -25,6 +25,8 @@ Rješenje projekta dijelimo na 5 komponenata: klijentska aplikacija, web servis,
   * Baza: u bazu spremamo periodički zapise iz cache-a (sesije koje su istekle). Baza sadrži dvije tablice: Session i Videoplayer. Tablica Session sadrži atribute Id, SessionId, Status, UserAdress, IdVideo i RequestTime, dok tablica Videoplayer sadrži atribute Id i IdVideo. Pri pokretanju kontejnera, na Ms SQL Serveru, kreira se baza SessionDatabase s navedenim tablicama te obavlja se mehanizam perzistencije podataka, i to prebacivanje podataka s vanjskog diska na unutarnji folder kontejnera. Tako smo dobili trajne podatke, i ako se kontejner restarta.
   * BackgroundWorker: omogućava periodičku obradu podataka te prebacivanje isteklih sesija u bazu.
   
+  * Hangfire: komponenta koja odrađuje isti posao kao BackgroundWorker. Na Hangfire server je uz pomoć Hangfire klijenta i RecurirringJob-a postavljen posao (Job) koji se obavi svake minute - pregledava u cache-u istekle sesije te one koje su istekle sprema u SQL bazu. 
+  
  <p align="center">
   <img src="https://user-images.githubusercontent.com/18721181/85980973-a7abf280-b9e3-11ea-9a48-b1b631b00744.png">
 </p>
@@ -58,9 +60,12 @@ Pozadinski dio ovog testa je isto uspješan. Background Worker je uspješno peri
 
 ## Pokretanje komponenata
 
-Kako bi pokrenuli svih 5 komponenata, dovoljno je preuzeti docker-compose.yaml datoteku koja se nalazi u glavnom direktoriju ovog repozitorija. Nakon preuzimanja, navedenu datoteku možemo spremiti u određeni folder na našem računalu. Uz pomoć omiljenog terminala navodimo se do tog foldera te ulazimo u njega. Uz preduvjet da je Docker već instaliran na računalu, s naredbom "docker-compose up --build" možemo preuzeti slike i pokrenuti kontejnere. 
+Kako bi pokrenuli sve komponente, dovoljno je preuzeti docker-compose.yaml datoteku koja se nalazi u glavnom direktoriju ovog repozitorija. Nakon preuzimanja, navedenu datoteku možemo spremiti u određeni folder na našem računalu. Uz pomoć omiljenog terminala navodimo se do tog foldera te ulazimo u njega. Uz preduvjet da je Docker već instaliran na računalu, s naredbom "docker-compose up --build" možemo preuzeti slike i pokrenuti kontejnere. 
 * Angular aplikacija dostupna na: http://localhost:4200
 * Web Api dostupan na: http://localhost:5000
+* Hangfire Dashboard na: http://localhost:5004/hangfire
+* RabbitMQ na: http://localhost:8080
+* SignalR i kreirani Hub na: http://localhost:5002/sessionhub
 * Ostale komponente možemo razmatrati preko njihovih CLI-a (redis-cli, sqlcmd) ili preko logova na Docker Desktopu.
 
 Na slici ispod vidimo da je pokrenuto svih 5 komponenata te možemo vidjeti nazive kontejnera, nazive njihovih image-a te koji su portovi pridjeljeni u kontejnerima.
@@ -75,7 +80,10 @@ Za izradu projekta korištene su sljedeće tehnologije:
       - ASP.NET Core MVC
       - StackExchange.Redis: Redis klijent za C#
       - Dapper: micro ORM (mapiranje između baze i C#-a)
-      - Angular 8     
+      - Angular 8 
+      - Hangfire
+      - XUnit
+  * RabbitMQ - message broker
   * Redis Cache
   * Microsoft SQL Server 2019
   * Microsoft SQL Server Managment Studio 2018
@@ -124,4 +132,9 @@ Prvo su provedena tri testa koja su vezana uz provjeru argumenata, a zatim su pr
 
 Hangfire je open-source framework koji pomaže u kreiranju, obrađivanju i upravljanju pozadinskih poslova, tj. operacija koje ne želimo smjestiti na pipeline za obradu zahtjeva (izrada različitih grafikona, obrada slike/ videozapisa, brisanje korisnika, slanje notifikacija, automatska izvješća, održavanje baze podataka). Hangfire podržava sve vrste background tasko-ova - kratkotrajne, dugotrajne, intezivne za procesor i I/O, jednokratne i ponavljajuće. Vrste su: fire-and-forget, delayed, reccuring, continuations, batches i batch continuations.
 
-Za primjenu Hangfire-a, odrađen je jednostavni zadatak u kojem je bilo potrebno pokrenuti Hangfire server kao standalone server kojemu je persistence prvo postavljen na SQL bazu, a potom i na Redis. Potom je u servisu SessionControl dodana ovisnost o Hangfire-u u service container te kroz konstruktor u kontroleru je ubačen BackgroundJobClient i kreirana je instanca (uz pomoć framework-a). Slanjem HTTP zahtjeva na web api prilikom pokretanja videa na korisničkoj aplikaciji kreiraju se određeni task-ovi. Kreiran je fire-and-forget task uz pomoć metode Enqueue (ovaj task se izvodi samo jednom i gotovo odmah nakon što su kreirani), delayed task s metodom Schedule (izvršava se samo jednom, ali nakon određenog vremenskog intervala), reccuring task s metodom AddOrUpdate(izvršavaju se više puta prema navedenom rasporedu CRONa) i continuation task s metodom ContinueJobWith (izvršava se nakon što se ispuni određeni task). Izvršavanje ovih tasko-ova je trivijalno, u konzoli se samo ispisuje poruku. Kreiranje i izvođenje task-ova možemo pratiti u našem storage-u (SQL baza ili Redis), ili na bolji i pregledniji način uz pomoć web hangfire dashboarda. 
+Za primjenu Hangfire-a, odrađen je posao BackgroundWorkera - provjera isteklih sesija u cache-u i spremanje istih u SQL bazu. Za potrebu obavljanja zadatka kreirana su tri nova projekta: HangfireServer, HangfireClientService i HangfireWorker. 
+ * HangfireServer: konzolna aplikacija koja će nam poslužiti za postavljanje Hanfire servera: preuzimanje paketa, povezivanje s SQL bazom radi preuzimanja Job-ova i njihovog obavljanja, registriranje servisa.
+ * HangfireWorker: shared library u kojem se nalazi klasa HangfireJob u kojoj se povezujemo s Redisom i SQL serverom te odrađujemo posao perzistencije podataka, iz Redisa u SQL bazu.
+ * HangfireClientService: web aplikacija na kojoj je smješten hangfire dashboard te s koje smo zadali RecurringJob (Job koji se obavlja svake minute) za metodu perzistencije podataka.
+
+
