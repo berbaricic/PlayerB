@@ -9,7 +9,14 @@
     <description>Package Description</description>
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="Microsoft.Azure.Amqp" version="2.4.7" exclude="Build,Analyzers" />
+        <dependency id="SessionLibrary" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Dapper" version="2.0.35" exclude="Build,Analyzers" />
+        <dependency id="Hangfire.Core" version="1.7.14" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="3.1.8" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="12.0.3" exclude="Build,Analyzers" />
+        <dependency id="StackExchange.Redis" version="2.1.58" exclude="Build,Analyzers" />
+        <dependency id="System.Data.SqlClient" version="4.8.1" exclude="Build,Analyzers" />
+        <dependency id="Unity" version="5.11.7" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

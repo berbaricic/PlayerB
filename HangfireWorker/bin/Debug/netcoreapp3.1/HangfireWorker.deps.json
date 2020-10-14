@@ -14,7 +14,8 @@
           "Newtonsoft.Json": "12.0.3",
           "SessionLibrary": "1.0.0",
           "StackExchange.Redis": "2.1.58",
-          "System.Data.SqlClient": "4.8.1"
+          "System.Data.SqlClient": "4.8.1",
+          "Unity": "5.11.7"
         },
         "runtime": {
           "HangfireWorker.dll": {}
@@ -363,6 +364,21 @@
           }
         }
       },
+      "Unity/5.11.7": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Unity.Abstractions.dll": {
+            "assemblyVersion": "5.11.6.0",
+            "fileVersion": "5.11.6.0"
+          },
+          "lib/netcoreapp3.0/Unity.Container.dll": {
+            "assemblyVersion": "5.11.8.0",
+            "fileVersion": "5.11.8.0"
+          }
+        }
+      },
       "SessionLibrary/1.0.0": {
         "runtime": {
           "SessionLibrary.dll": {}
@@ -578,6 +594,13 @@
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
+    },
+    "Unity/5.11.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hlJ6/MuLnSb//f4wwMZyOYko6iiDt2WNNP1R8vqL0heruP/7qDhL0vCq+FRIMrtj1rUa9BaEdzR5weMbhi6gQA==",
+      "path": "unity/5.11.7",
+      "hashPath": "unity.5.11.7.nupkg.sha512"
     },
     "SessionLibrary/1.0.0": {
       "type": "project",

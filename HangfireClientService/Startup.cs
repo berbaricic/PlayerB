@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,11 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HangfireWorker;
 using Microsoft.Extensions.Configuration;
-using StackExchange.Redis;
-using HangfireWorker.StorageConnection;
-using HangfireWorker.StorageWork;
 using Hangfire;
-using Unity;
 
 namespace HangfireClientService
 {
@@ -37,7 +29,7 @@ namespace HangfireClientService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, IBackgroundJobClient backgroundJobClient)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -53,14 +45,13 @@ namespace HangfireClientService
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
-            GlobalConfiguration.Configuration.UseActivator(new HangfireJobActivator(serviceProvider));
+
             app.UseHangfireDashboard("/hangfire", new DashboardOptions()
             {
                 Authorization = new[] { new MyAuthorizationFilter() },
                 IgnoreAntiforgeryToken = true
             });
-
-            backgroundJobClient.Schedule<IHangfireJob>(worker => worker.PersistDataToDatabase(), TimeSpan.FromMinutes(1));
+            RecurringJob.AddOrUpdate<HangfireJob>(worker => worker.PersistDataToDatabase(), Cron.Minutely());
         }
     }
 }

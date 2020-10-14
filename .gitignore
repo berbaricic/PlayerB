@@ -1,2 +1,8 @@
 /VideoplayerApp/node_modules
 /MSSQL/sqldata/
+/BackgroundWorker/obj/
+/HangfireServer/bin/Debug/
+/HangfireServer/obj/
+/SessionControl/obj/
+/SessionLibrary/obj/Debug/
+/XUnitTest/obj/

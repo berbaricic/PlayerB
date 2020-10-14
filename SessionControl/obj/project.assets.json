@@ -573,16 +573,16 @@
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.Abstractions/3.1.8": {
+      "Microsoft.Extensions.Configuration.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.8"
+          "Microsoft.Extensions.Primitives": "2.2.0"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection/3.1.0": {
@@ -656,13 +656,17 @@
           "lib/netstandard2.0/Microsoft.Extensions.Options.dll": {}
         }
       },
-      "Microsoft.Extensions.Primitives/3.1.8": {
+      "Microsoft.Extensions.Primitives/2.2.0": {
         "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.1"
+        },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {
@@ -2649,40 +2653,6 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "Unity/5.11.7": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
-        },
-        "compile": {
-          "lib/netcoreapp3.0/Unity.Abstractions.dll": {},
-          "lib/netcoreapp3.0/Unity.Container.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/Unity.Abstractions.dll": {},
-          "lib/netcoreapp3.0/Unity.Container.dll": {}
-        }
-      },
-      "HangfireWorker/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "dependencies": {
-          "Dapper": "2.0.35",
-          "Hangfire.Core": "1.7.14",
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.8",
-          "Newtonsoft.Json": "12.0.3",
-          "SessionLibrary": "1.0.0",
-          "StackExchange.Redis": "2.1.58",
-          "System.Data.SqlClient": "4.8.1",
-          "Unity": "5.11.7"
-        },
-        "compile": {
-          "bin/placeholder/HangfireWorker.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/HangfireWorker.dll": {}
-        }
-      },
       "RabbitMqEventBus/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -3325,19 +3295,16 @@
         "microsoft.extensions.caching.abstractions.nuspec"
       ]
     },
-    "Microsoft.Extensions.Configuration.Abstractions/3.1.8": {
-      "sha512": "0qbNyxGpuNP/fuQ3FLHesm1Vn/83qYcAgVsi1UQCQN1peY4YH1uiizOh4xbYkQyxiVMD/c/zhiYYv94G0DXSSA==",
+    "Microsoft.Extensions.Configuration.Abstractions/2.2.0": {
+      "sha512": "65MrmXCziWaQFrI0UHkQbesrX5wTwf9XPjY5yFm/VkgJKFJ5gqvXRoXjIZcf2wLi5ZlwGz/oMYfyURVCWbM5iw==",
       "type": "package",
-      "path": "microsoft.extensions.configuration.abstractions/3.1.8",
+      "path": "microsoft.extensions.configuration.abstractions/2.2.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.xml",
-        "microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",
+        "microsoft.extensions.configuration.abstractions.2.2.0.nupkg.sha512",
         "microsoft.extensions.configuration.abstractions.nuspec"
       ]
     },
@@ -3428,19 +3395,16 @@
         "microsoft.extensions.options.nuspec"
       ]
     },
-    "Microsoft.Extensions.Primitives/3.1.8": {
-      "sha512": "XcIoXQhT0kwnEhOKv/LmpWR6yF6QWmBTy9Fcsz4aHuCOgTJ7Zd23ELtUA4BfwlYoFlSedavS+vURz9tNekd44g==",
+    "Microsoft.Extensions.Primitives/2.2.0": {
+      "sha512": "azyQtqbm4fSaDzZHD/J+V6oWMFaf2tWP4WEGIYePLCMw3+b2RQdj9ybgbQyjCshcitQKQ4lEDOZjmSlTTrHxUg==",
       "type": "package",
-      "path": "microsoft.extensions.primitives/3.1.8",
+      "path": "microsoft.extensions.primitives/2.2.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Primitives.xml",
-        "microsoft.extensions.primitives.3.1.8.nupkg.sha512",
+        "microsoft.extensions.primitives.2.2.0.nupkg.sha512",
         "microsoft.extensions.primitives.nuspec"
       ]
     },
@@ -8750,62 +8714,6 @@
         "system.xml.xmldocument.nuspec"
       ]
     },
-    "Unity/5.11.7": {
-      "sha512": "hlJ6/MuLnSb//f4wwMZyOYko6iiDt2WNNP1R8vqL0heruP/7qDhL0vCq+FRIMrtj1rUa9BaEdzR5weMbhi6gQA==",
-      "type": "package",
-      "path": "unity/5.11.7",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40/Unity.Abstractions.dll",
-        "lib/net40/Unity.Abstractions.pdb",
-        "lib/net40/Unity.Container.dll",
-        "lib/net40/Unity.Container.pdb",
-        "lib/net45/Unity.Abstractions.dll",
-        "lib/net45/Unity.Abstractions.pdb",
-        "lib/net45/Unity.Container.dll",
-        "lib/net45/Unity.Container.pdb",
-        "lib/net46/Unity.Abstractions.dll",
-        "lib/net46/Unity.Abstractions.pdb",
-        "lib/net46/Unity.Container.dll",
-        "lib/net46/Unity.Container.pdb",
-        "lib/net47/Unity.Abstractions.dll",
-        "lib/net47/Unity.Abstractions.pdb",
-        "lib/net47/Unity.Container.dll",
-        "lib/net47/Unity.Container.pdb",
-        "lib/net48/Unity.Abstractions.dll",
-        "lib/net48/Unity.Abstractions.pdb",
-        "lib/net48/Unity.Container.dll",
-        "lib/net48/Unity.Container.pdb",
-        "lib/netcoreapp1.0/Unity.Abstractions.dll",
-        "lib/netcoreapp1.0/Unity.Abstractions.pdb",
-        "lib/netcoreapp1.0/Unity.Container.dll",
-        "lib/netcoreapp1.0/Unity.Container.pdb",
-        "lib/netcoreapp2.0/Unity.Abstractions.dll",
-        "lib/netcoreapp2.0/Unity.Abstractions.pdb",
-        "lib/netcoreapp2.0/Unity.Container.dll",
-        "lib/netcoreapp2.0/Unity.Container.pdb",
-        "lib/netcoreapp3.0/Unity.Abstractions.dll",
-        "lib/netcoreapp3.0/Unity.Abstractions.pdb",
-        "lib/netcoreapp3.0/Unity.Container.dll",
-        "lib/netcoreapp3.0/Unity.Container.pdb",
-        "lib/netstandard1.0/Unity.Abstractions.dll",
-        "lib/netstandard1.0/Unity.Abstractions.pdb",
-        "lib/netstandard1.0/Unity.Container.dll",
-        "lib/netstandard1.0/Unity.Container.pdb",
-        "lib/netstandard2.0/Unity.Abstractions.dll",
-        "lib/netstandard2.0/Unity.Abstractions.pdb",
-        "lib/netstandard2.0/Unity.Container.dll",
-        "lib/netstandard2.0/Unity.Container.pdb",
-        "unity.5.11.7.nupkg.sha512",
-        "unity.nuspec"
-      ]
-    },
-    "HangfireWorker/1.0.0": {
-      "type": "project",
-      "path": "../HangfireWorker/HangfireWorker.csproj",
-      "msbuildProject": "../HangfireWorker/HangfireWorker.csproj"
-    },
     "RabbitMqEventBus/1.0.0": {
       "type": "project",
       "path": "../RabbitMqEventBus/RabbitMqEventBus.csproj",
@@ -8826,7 +8734,6 @@
       "Hangfire.AspNetCore >= 1.7.14",
       "Hangfire.Core >= 1.7.14",
       "Hangfire.SqlServer >= 1.7.14",
-      "HangfireWorker >= 1.0.0",
       "Microsoft.AspNetCore.Session >= 2.2.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.10.8",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
@@ -8864,9 +8771,6 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\Berislav\\source\\repos\\SessionControl\\HangfireWorker\\HangfireWorker.csproj": {
-              "projectPath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\HangfireWorker\\HangfireWorker.csproj"
-            },
             "C:\\Users\\Berislav\\source\\repos\\SessionControl\\RabbitMqEventBus\\RabbitMqEventBus.csproj": {
               "projectPath": "C:\\Users\\Berislav\\source\\repos\\SessionControl\\RabbitMqEventBus\\RabbitMqEventBus.csproj"
             },

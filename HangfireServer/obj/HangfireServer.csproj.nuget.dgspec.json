@@ -42,6 +42,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "HangFire.Autofac": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
             "HangFire.Redis.StackExchange": {
               "target": "Package",
               "version": "[1.8.4, )"

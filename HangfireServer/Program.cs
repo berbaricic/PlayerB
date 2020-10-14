@@ -8,6 +8,9 @@ using StackExchange.Redis;
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration.Json;
+using HangfireWorker;
+using Unity;
+using Autofac;
 
 namespace HangfireServer
 {
@@ -17,24 +20,20 @@ namespace HangfireServer
         {
             Console.WriteLine("Starting Hangfire server.");
             GlobalConfiguration.Configuration.UseSqlServerStorage("Server = database; Database = HangfireDatabase; User = sa; Password = Pa&&word2020;");
-            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true);
-
-            var configuration = builder.Build();
 
             var hostBuilder = new HostBuilder().ConfigureServices((hostContext, services) =>
             {
-                string configString = configuration.GetConnectionString("redis");
-                var options = ConfigurationOptions.Parse(configString);
-                IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
-                services.AddScoped(s => redis.GetDatabase());
-                services.AddTransient<ISqlDatabaseConnection, SqlDatabaseConnection>();
-                services.AddTransient<ISqlDatabaseWork, SqlDatabaseWork>();
             });
-            
+            var builder = new ContainerBuilder();
+            builder.RegisterType<SqlDatabaseConnection>().As<ISqlDatabaseConnection>().InstancePerLifetimeScope();
+            builder.RegisterType<SqlDatabaseWork>().As<ISqlDatabaseWork>().InstancePerBackgroundJob();
+            builder.RegisterType<HangfireJob>().AsSelf().InstancePerBackgroundJob();
+            GlobalConfiguration.Configuration.UseAutofacActivator(builder.Build());
+
             using (var server = new BackgroundJobServer(new BackgroundJobServerOptions()
             {
 
-                WorkerCount = Environment.ProcessorCount * 1
+                WorkerCount = Environment.ProcessorCount * 5
             }))
             {
                 await hostBuilder.RunConsoleAsync();

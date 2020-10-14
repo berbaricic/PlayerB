@@ -6,25 +6,21 @@ using System;
 
 namespace HangfireWorker
 {
-    public class HangfireJob : IHangfireJob
+    public class HangfireJob
     {
-        private IDatabase _cache;
+        private readonly IDatabase _cache;
         private readonly ISqlDatabaseWork sqlDatabase;
-
-        public HangfireJob()
+        public HangfireJob(ISqlDatabaseWork sqlDatabase)
         {
-
-        }
-        public HangfireJob(IDatabase _cache, ISqlDatabaseWork sqlDatabase)
-        {
-            this._cache = _cache;
             this.sqlDatabase = sqlDatabase;
+            IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("redis");
+            _cache = redis.GetDatabase();
         }
 
         public void PersistDataToDatabase()
         {
-            int timestampNow = 0;
-            int timestampLimit = 0;
+            int timestampNow;
+            int timestampLimit;
             //time when background worker start checking
             timestampNow = (int)new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds();
             //sessions with time before this (timestampLimit) are invalid

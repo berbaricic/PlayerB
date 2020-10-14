@@ -1,20 +1,23 @@
 ﻿using Hangfire;
 using System;
+using Unity;
 
 namespace HangfireWorker
 {
     public class HangfireJobActivator : JobActivator
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IUnityContainer hangfireContainer;
 
-        public HangfireJobActivator(IServiceProvider serviceProvider)
+        public HangfireJobActivator(IUnityContainer hangfireContainer)
         {
-            _serviceProvider = serviceProvider;
+            this.hangfireContainer = hangfireContainer;
+            //don't forget to register child dependencies as well
         }
+
 
         public override object ActivateJob(Type type)
         {
-            return _serviceProvider.GetService(type);
+            return hangfireContainer.Resolve(type);
         }
     }
 }

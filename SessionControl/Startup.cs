@@ -8,14 +8,8 @@ using RabbitMqEventBus;
 using Autofac;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
-using Hangfire;
 using Autofac.Extensions.DependencyInjection;
 using System;
-using HangfireWorker.StorageConnection;
-using HangfireWorker.StorageWork;
-using HangfireWorker;
-using Hangfire.AspNetCore;
-using Unity;
 
 namespace SessionControl
 {
@@ -35,8 +29,6 @@ namespace SessionControl
             var options = ConfigurationOptions.Parse(configString);
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
             services.AddScoped(s => redis.GetDatabase());
-            //services.AddTransient<ISqlDatabaseConnection, SqlDatabaseConnection>();
-            //services.AddTransient<ISqlDatabaseWork, SqlDatabaseWork>();
 
             services.AddControllersWithViews();
 
@@ -77,21 +69,6 @@ namespace SessionControl
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
-            //SQL - Hangfire Job Storage
-            services.AddHangfire(configuration => configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection")));
-
-            //var unityContainer = new UnityContainer();          
-            //GlobalConfiguration.Configuration.UseActivator(new HangfireJobActivator(unityContainer));
-
-            //Redis - Hangfire Job Storage
-            //services.AddHangfire(configuration => configuration.UseRedisStorage(
-            //    Configuration.GetConnectionString("redis"), 
-            //    new RedisStorageOptions { Prefix = "{hangfire-1}:" }));
-
             var container = new ContainerBuilder();
             container.Populate(services);
             return new AutofacServiceProvider(container.Build());
@@ -124,12 +101,6 @@ namespace SessionControl
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseHangfireDashboard("/hangfire", new DashboardOptions()
-            {
-                Authorization = new[] { new MyAuthorizationFilter() },
-                IgnoreAntiforgeryToken = true
             });
         }
 

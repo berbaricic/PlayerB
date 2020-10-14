@@ -84,3 +84,6 @@ C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreap
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\SessionLibrary.dll
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\HangfireWorker.pdb
 C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\SessionLibrary.pdb
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\Autofac.dll
+C:\Users\Berislav\source\repos\SessionControl\HangfireServer\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll

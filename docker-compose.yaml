@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   angular:
-    build: 
-      context: .
-      dockerfile: ./VideoplayerApp/Dockerfile
+    image: "doc2210/internship_2210:vlatest"
     container_name: angular
     ports:
       - "4200:4200"
@@ -12,22 +10,19 @@ services:
       - signalr
 
   database:
-    build: 
-      context: .
-      dockerfile: ./MSSQL/Dockerfile
+    image: "doc2210/mssql:sqlatest"
     restart: always
     container_name: database
     ports:
-      - "1433:1433"    
+      - "1433:1433" 
     volumes: 
-      - ./MSSQL/sqldata:/var/opt/mssql/data 
+      - ./MSSQL/sqldata:/var/opt/mssql/data     
  
   webapi:
-    build: 
-      context: .
-      dockerfile: ./SessionControl/Dockerfile 
+    image: "doc2210/web_api:slatest"
     container_name: webapi
-    restart: always
+    expose: 
+      - "443"
     depends_on:
       - redis
       - database
@@ -52,12 +47,10 @@ services:
     hostname: rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=password  
+      - RABBITMQ_DEFAULT_PASS=password 
 
   signalr:
-    build: 
-      context: .
-      dockerfile: ./SignalrService/Dockerfile 
+    image: "doc2210/signalr:latest" 
     container_name: signalr
     restart: on-failure
     depends_on:
@@ -68,9 +61,7 @@ services:
       - "5003:5003"
 
   hangfire:
-    build:
-      context: .
-      dockerfile: ./HangfireServer/Dockerfile
+    image: "doc2210/hangfire:latest"
     container_name: hangfire
     restart: on-failure
     depends_on:
@@ -78,9 +69,7 @@ services:
       - database
 
   hangfireclient: 
-    build:
-      context: .
-      dockerfile: ./HangfireClientService/Dockerfile
+    image: "doc2210/hangfireclient:latest"
     container_name: hangfireclient
     restart: on-failure
     depends_on:
@@ -90,4 +79,5 @@ services:
     ports:
       - "5004:80"
       - "5005:5005"
+  
     
