@@ -23,6 +23,8 @@ Rješenje projekta dijelimo na 5 komponenata: klijentska aplikacija, web servis,
   Također, u drugu strukturu "SortedSet" spremamo ključeve (member) i vrijeme zadnjeg zahtjeva na taj ključ(score). SortedSet nam omogućava provjeru isteklih sesija koje onda možemo 
   dohvatiti iz "Key-Value pairs" te spremiti u bazu.
   * Baza: u bazu spremamo periodički zapise iz cache-a (sesije koje su istekle). Baza sadrži dvije tablice: Session i Videoplayer. Tablica Session sadrži atribute Id, SessionId, Status, UserAdress, IdVideo i RequestTime, dok tablica Videoplayer sadrži atribute Id i IdVideo. Pri pokretanju kontejnera, na Ms SQL Serveru, kreira se baza SessionDatabase s navedenim tablicama te obavlja se mehanizam perzistencije podataka, i to prebacivanje podataka s vanjskog diska na unutarnji folder kontejnera. Tako smo dobili trajne podatke, i ako se kontejner restarta.
+  
+ Ove dvije komponente odrađuju isti zadatak, stoga se pokreće samo jedna od njih: 
   * BackgroundWorker: omogućava periodičku obradu podataka te prebacivanje isteklih sesija u bazu.
   
   * Hangfire: komponenta koja odrađuje isti posao kao BackgroundWorker. Na Hangfire server je uz pomoć Hangfire klijenta i RecurirringJob-a postavljen posao (Job) koji se obavi svake minute - pregledava u cache-u istekle sesije te one koje su istekle sprema u SQL bazu. 
